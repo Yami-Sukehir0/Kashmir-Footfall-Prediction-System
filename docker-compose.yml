@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6
+    container_name: kashmir-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: kashmir_tourism
+
+  ml-api:
+    build: ./backend
+    container_name: kashmir-ml-api
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - ./backend/models:/app/models
+    environment:
+      FLASK_ENV: production
+
+  node-api:
+    build: ./server
+    container_name: kashmir-node-api
+    restart: always
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+      - ml-api
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/kashmir_tourism
+      ML_API_URL: http://ml-api:5000
+      NODE_ENV: production
+
+  frontend:
+    build: ./client
+    container_name: kashmir-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - node-api
+    environment:
+      REACT_APP_API_URL: http://localhost:3001/api
+
+volumes:
+  mongo-data:
