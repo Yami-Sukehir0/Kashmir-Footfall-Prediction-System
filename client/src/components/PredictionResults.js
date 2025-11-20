@@ -2,7 +2,19 @@ import React, { useState } from 'react';
 import './PredictionResults.css';
 
 function PredictionResults({ prediction }) {
-  const { location, year, month, predicted_footfall, confidence, weather, holidays } = prediction;
+  const { 
+    location, 
+    year, 
+    month, 
+    predicted_footfall, 
+    confidence, 
+    weather, 
+    holidays,
+    comparative_analysis,
+    insights,
+    resource_suggestions
+  } = prediction;
+  
   const [activeTab, setActiveTab] = useState('overview');
 
   const monthNames = [
@@ -10,7 +22,7 @@ function PredictionResults({ prediction }) {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  const crowdLevel = predicted_footfall < 50000 ? 'LOW' : predicted_footfall < 90000 ? 'MODERATE' : 'HIGH';
+  const crowdLevel = predicted_footfall < 20000 ? 'LOW' : predicted_footfall < 40000 ? 'MODERATE' : 'HIGH';
   const crowdColor = crowdLevel === 'LOW' ? '#10b981' : crowdLevel === 'MODERATE' ? '#f59e0b' : '#ef4444';
   const crowdDescription = crowdLevel === 'LOW' ? 'Ideal for peaceful visits with minimal crowds' : 
                           crowdLevel === 'MODERATE' ? 'Comfortable tourist flow with manageable crowds' : 
@@ -25,16 +37,6 @@ function PredictionResults({ prediction }) {
   };
 
   const season = getSeason(month);
-
-  // Weather impact analysis
-  const getWeatherImpact = (weather) => {
-    if (weather.snowfall > 50) return 'Heavy snowfall may impact accessibility';
-    if (weather.temperature_max > 25) return 'Warm weather suitable for outdoor activities';
-    if (weather.temperature_min < 0) return 'Freezing conditions may limit activities';
-    return 'Favorable weather conditions expected';
-  };
-
-  const weatherImpact = getWeatherImpact(weather);
 
   // Format large numbers
   const formatNumber = (num) => {
@@ -90,6 +92,13 @@ function PredictionResults({ prediction }) {
           <i className="fas fa-calendar-check"></i>
           Holiday Analysis
         </button>
+        <button 
+          className={`tab-button ${activeTab === 'insights' ? 'active' : ''}`}
+          onClick={() => setActiveTab('insights')}
+        >
+          <i className="fas fa-lightbulb"></i>
+          Insights & Planning
+        </button>
       </div>
 
       {/* Tab Content */}
@@ -106,8 +115,8 @@ function PredictionResults({ prediction }) {
                   <div className="card-value">{formatNumber(predicted_footfall)}</div>
                   <div className="card-sublabel">Visitors Expected</div>
                   <div className="trend-indicator">
-                    <i className="fas fa-arrow-up"></i>
-                    <span>+12% from last year</span>
+                    <i className={`fas fa-arrow-${comparative_analysis.trend === 'increase' ? 'up' : 'down'}`}></i>
+                    <span>{Math.abs(comparative_analysis.year_over_year_change)}% {comparative_analysis.trend} from {comparative_analysis.previous_year}</span>
                   </div>
                 </div>
               </div>
@@ -126,7 +135,7 @@ function PredictionResults({ prediction }) {
                     ></div>
                   </div>
                   <div className="confidence-description">
-                    {confidence > 0.8 ? 'High confidence prediction' : confidence > 0.6 ? 'Moderate confidence' : 'Low confidence'}
+                    {confidence > 0.9 ? 'Very High confidence' : confidence > 0.8 ? 'High confidence prediction' : confidence > 0.7 ? 'Moderate confidence' : 'Low confidence'}
                   </div>
                 </div>
               </div>
@@ -148,30 +157,15 @@ function PredictionResults({ prediction }) {
             <div className="prediction-insights" data-aos="fade-up">
               <h3>
                 <i className="fas fa-lightbulb"></i>
-                Key Insights & Recommendations
+                Key Insights
               </h3>
-              <div className="insights-grid">
-                <div className="insight-card">
-                  <i className="fas fa-calendar-plus"></i>
-                  <div className="insight-content">
-                    <h4>Peak Timing</h4>
-                    <p>Based on {season.name.toLowerCase()} conditions and holiday patterns, this period is expected to see {crowdLevel.toLowerCase()} visitor traffic.</p>
+              <div className="insights-list">
+                {insights && insights.map((insight, index) => (
+                  <div key={index} className="insight-item">
+                    <i className="fas fa-info-circle"></i>
+                    <span>{insight}</span>
                   </div>
-                </div>
-                <div className="insight-card">
-                  <i className="fas fa-shuttle-van"></i>
-                  <div className="insight-content">
-                    <h4>Transport Planning</h4>
-                    <p>{weather.snowfall > 30 ? 'Snow chains and 4WD vehicles recommended' : 'Standard transport sufficient'}</p>
-                  </div>
-                </div>
-                <div className="insight-card">
-                  <i className="fas fa-concierge-bell"></i>
-                  <div className="insight-content">
-                    <h4>Accommodation</h4>
-                    <p>Prepare for {crowdLevel.toLowerCase()} occupancy rates. Consider dynamic pricing strategies.</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -182,7 +176,7 @@ function PredictionResults({ prediction }) {
             <div className="weather-details">
               <div className="weather-summary">
                 <h3>Weather Conditions for {location}</h3>
-                <p>{weatherImpact}</p>
+                <p>Detailed weather analysis for optimal tourism planning</p>
               </div>
               
               <div className="weather-metrics-grid">
@@ -195,6 +189,19 @@ function PredictionResults({ prediction }) {
                     <div className="metric-label">Average Temperature</div>
                     <div className="metric-range">
                       {weather.temperature_min}°C - {weather.temperature_max}°C
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="weather-metric">
+                  <div className="metric-icon">
+                    <i className="fas fa-tint"></i>
+                  </div>
+                  <div className="metric-content">
+                    <div className="metric-value">{weather.precipitation}mm</div>
+                    <div className="metric-label">Precipitation</div>
+                    <div className="metric-range">
+                      {weather.precipitation > 100 ? 'Heavy Rain' : weather.precipitation > 50 ? 'Moderate Rain' : 'Light Rain'}
                     </div>
                   </div>
                 </div>
@@ -224,31 +231,19 @@ function PredictionResults({ prediction }) {
                     </div>
                   </div>
                 </div>
-                
-                <div className="weather-metric">
-                  <div className="metric-icon">
-                    <i className="fas fa-wind"></i>
-                  </div>
-                  <div className="metric-content">
-                    <div className="metric-value">{weather.wind}km/h</div>
-                    <div className="metric-label">Wind Speed</div>
-                    <div className="metric-range">
-                      {weather.wind > 30 ? 'Windy' : weather.wind > 20 ? 'Moderate' : 'Calm'}
-                    </div>
-                  </div>
-                </div>
               </div>
               
               <div className="weather-impact-card">
                 <h4><i className="fas fa-exclamation-circle"></i> Weather Impact Analysis</h4>
-                <p>{weatherImpact}</p>
                 <div className="impact-recommendations">
-                  <h5>Recommendations:</h5>
+                  <h5>Weather-Based Recommendations:</h5>
                   <ul>
-                    {weather.snowfall > 50 && <li>Ensure snow clearance equipment is ready</li>}
-                    {weather.temperature_min < 0 && <li>Provide heating facilities for visitors</li>}
-                    {weather.sunshine_hours > 250 && <li>Promote outdoor activities and sightseeing</li>}
+                    {weather.snowfall > 50 && <li>Ensure snow clearance equipment is ready and road maintenance crews are on standby</li>}
+                    {weather.temperature_min < 0 && <li>Provide heating facilities for visitors and ensure accommodation preparedness</li>}
+                    {weather.sunshine_hours > 250 && <li>Promote outdoor activities and sightseeing with extended hours</li>}
+                    {weather.precipitation > 100 && <li>Prepare for wet conditions with proper drainage and slip-resistant walkways</li>}
                     {weather.wind > 30 && <li>Secure loose outdoor equipment and signage</li>}
+                    <li>Monitor weather forecasts daily and communicate updates to visitors</li>
                   </ul>
                 </div>
               </div>
@@ -280,8 +275,8 @@ function PredictionResults({ prediction }) {
                     <i className="fas fa-calendar-week"></i>
                   </div>
                   <div className="metric-content">
-                    <div className="metric-value">{holidays.has_long_weekend ? 'Yes' : 'No'}</div>
-                    <div className="metric-label">Long Weekend</div>
+                    <div className="metric-value">{holidays.long_weekends}</div>
+                    <div className="metric-label">Long Weekends</div>
                   </div>
                 </div>
                 
@@ -290,7 +285,7 @@ function PredictionResults({ prediction }) {
                     <i className="fas fa-flag"></i>
                   </div>
                   <div className="metric-content">
-                    <div className="metric-value">{holidays.national}</div>
+                    <div className="metric-value">{holidays.national_holidays}</div>
                     <div className="metric-label">National Holidays</div>
                   </div>
                 </div>
@@ -300,7 +295,7 @@ function PredictionResults({ prediction }) {
                     <i className="fas fa-glass-cheers"></i>
                   </div>
                   <div className="metric-content">
-                    <div className="metric-value">{holidays.festival}</div>
+                    <div className="metric-value">{holidays.festival_holidays}</div>
                     <div className="metric-label">Festival Days</div>
                   </div>
                 </div>
@@ -314,41 +309,179 @@ function PredictionResults({ prediction }) {
                       className="impact-fill" 
                       style={{ 
                         width: `${Math.min(100, holidays.count * 25)}%`,
-                        backgroundColor: holidays.count >= 3 ? '#ef4444' : holidays.count >= 2 ? '#f59e0b' : '#10b981'
+                        backgroundColor: holidays.count >= 4 ? '#ef4444' : holidays.count >= 3 ? '#f59e0b' : '#10b981'
                       }}
                     ></div>
                   </div>
                   <div className="impact-text">
-                    {holidays.count >= 3 ? 'High Impact' : holidays.count >= 2 ? 'Moderate Impact' : 'Low Impact'}
+                    {holidays.count >= 4 ? 'Very High Impact' : holidays.count >= 3 ? 'High Impact' : holidays.count >= 2 ? 'Moderate Impact' : 'Low Impact'}
                   </div>
                 </div>
                 
                 <div className="impact-recommendations">
-                  <h5>Recommendations:</h5>
+                  <h5>Holiday-Based Recommendations:</h5>
                   <ul>
-                    {holidays.count >= 3 && (
+                    {holidays.count >= 4 && (
                       <>
-                        <li>Increase staffing by 30% during holiday periods</li>
-                        <li>Enhance security measures for large crowds</li>
-                        <li>Prepare additional accommodation options</li>
+                        <li>Increase staffing by 40% during holiday periods to manage large crowds</li>
+                        <li>Enhance security measures and crowd management protocols</li>
+                        <li>Prepare additional accommodation options and transportation services</li>
+                        <li>Extend operating hours for major attractions and facilities</li>
+                      </>
+                    )}
+                    {holidays.count >= 3 && holidays.count < 4 && (
+                      <>
+                        <li>Increase staffing by 30% during peak holiday periods</li>
+                        <li>Ensure adequate transport availability and parking facilities</li>
+                        <li>Monitor booking trends and adjust capacity accordingly</li>
                       </>
                     )}
                     {holidays.count === 2 && (
                       <>
-                        <li>Moderate staffing increase recommended</li>
-                        <li>Ensure adequate transport availability</li>
+                        <li>Moderate staffing increase recommended for weekends</li>
+                        <li>Ensure regular transportation schedules are maintained</li>
+                        <li>Prepare contingency plans for unexpected surges</li>
                       </>
                     )}
                     {holidays.count < 2 && (
                       <>
-                        <li>Standard operations sufficient</li>
+                        <li>Standard operations sufficient with regular monitoring</li>
                         <li>Monitor booking trends for adjustments</li>
+                        <li>Maintain flexibility for last-minute changes</li>
                       </>
                     )}
-                    {holidays.has_long_weekend && (
-                      <li>Extend operating hours for attractions</li>
+                    {holidays.long_weekends > 0 && (
+                      <li>Extend operating hours for attractions during long weekends</li>
                     )}
                   </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'insights' && (
+          <div className="tab-pane">
+            <div className="insights-details">
+              <div className="insights-summary">
+                <h3>Resource Planning & Strategic Insights</h3>
+                <p>Actionable recommendations for optimal tourism management</p>
+              </div>
+              
+              <div className="resource-planning-section">
+                <h4><i className="fas fa-user-friends"></i> Staffing Recommendations</h4>
+                <div className="recommendations-list">
+                  {resource_suggestions && resource_suggestions.filter(s => s.includes('staff') || s.includes('guides')).map((suggestion, index) => (
+                    <div key={index} className="recommendation-item">
+                      <i className="fas fa-user-check"></i>
+                      <span>{suggestion}</span>
+                    </div>
+                  ))}
+                  {(!resource_suggestions || !resource_suggestions.some(s => s.includes('staff') || s.includes('guides'))) && (
+                    <div className="recommendation-item">
+                      <i className="fas fa-user-check"></i>
+                      <span>Maintain standard staffing levels with on-call support for flexibility</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              <div className="resource-planning-section">
+                <h4><i className="fas fa-shuttle-van"></i> Transportation & Logistics</h4>
+                <div className="recommendations-list">
+                  {resource_suggestions && resource_suggestions.filter(s => s.includes('transportation') || s.includes('buses') || s.includes('taxis')).map((suggestion, index) => (
+                    <div key={index} className="recommendation-item">
+                      <i className="fas fa-shuttle-van"></i>
+                      <span>{suggestion}</span>
+                    </div>
+                  ))}
+                  {(!resource_suggestions || !resource_suggestions.some(s => s.includes('transportation') || s.includes('buses') || s.includes('taxis'))) && (
+                    <div className="recommendation-item">
+                      <i className="fas fa-shuttle-van"></i>
+                      <span>Ensure regular transportation schedules are maintained with backup vehicles available</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              <div className="resource-planning-section">
+                <h4><i className="fas fa-hotel"></i> Accommodation & Facilities</h4>
+                <div className="recommendations-list">
+                  {resource_suggestions && resource_suggestions.filter(s => s.includes('accommodation') || s.includes('hotels')).map((suggestion, index) => (
+                    <div key={index} className="recommendation-item">
+                      <i className="fas fa-hotel"></i>
+                      <span>{suggestion}</span>
+                    </div>
+                  ))}
+                  {(!resource_suggestions || !resource_suggestions.some(s => s.includes('accommodation') || s.includes('hotels'))) && (
+                    <div className="recommendation-item">
+                      <i className="fas fa-hotel"></i>
+                      <span>Monitor hotel occupancy rates and prepare overflow plans with local homestays</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              <div className="resource-planning-section">
+                <h4><i className="fas fa-first-aid"></i> Emergency Services</h4>
+                <div className="recommendations-list">
+                  {resource_suggestions && resource_suggestions.filter(s => s.includes('emergency') || s.includes('medical')).map((suggestion, index) => (
+                    <div key={index} className="recommendation-item">
+                      <i className="fas fa-first-aid"></i>
+                      <span>{suggestion}</span>
+                    </div>
+                  ))}
+                  {(!resource_suggestions || !resource_suggestions.some(s => s.includes('emergency') || s.includes('medical'))) && (
+                    <div className="recommendation-item">
+                      <i className="fas fa-first-aid"></i>
+                      <span>Maintain standard emergency services coverage with additional first aid stations during peak periods</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              <div className="resource-planning-section">
+                <h4><i className="fas fa-snowplow"></i> Special Considerations</h4>
+                <div className="recommendations-list">
+                  {resource_suggestions && resource_suggestions.filter(s => s.includes('snow') || s.includes('weather')).map((suggestion, index) => (
+                    <div key={index} className="recommendation-item">
+                      <i className="fas fa-snowplow"></i>
+                      <span>{suggestion}</span>
+                    </div>
+                  ))}
+                  {(!resource_suggestions || !resource_suggestions.some(s => s.includes('snow') || s.includes('weather'))) && (
+                    <div className="recommendation-item">
+                      <i className="fas fa-snowplow"></i>
+                      <span>Monitor weather conditions daily and communicate updates to visitors and staff</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              <div className="strategic-insights">
+                <h4><i className="fas fa-chart-bar"></i> Strategic Planning Insights</h4>
+                <div className="insights-grid">
+                  <div className="insight-card">
+                    <i className="fas fa-chart-line"></i>
+                    <div className="insight-content">
+                      <h5>Growth Trend</h5>
+                      <p>{comparative_analysis.year_over_year_change > 10 ? 'Strong growth indicates increasing popularity' : comparative_analysis.year_over_year_change > 0 ? 'Steady growth trend observed' : 'Declining trend requires attention'}</p>
+                    </div>
+                  </div>
+                  <div className="insight-card">
+                    <i className="fas fa-calendar-alt"></i>
+                    <div className="insight-content">
+                      <h5>Seasonal Pattern</h5>
+                      <p>{season.name} season typically sees {crowdLevel.toLowerCase()} visitor density</p>
+                    </div>
+                  </div>
+                  <div className="insight-card">
+                    <i className="fas fa-bullhorn"></i>
+                    <div className="insight-content">
+                      <h5>Marketing Focus</h5>
+                      <p>Target {crowdLevel.toLowerCase()} season promotions to optimize visitor distribution</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
