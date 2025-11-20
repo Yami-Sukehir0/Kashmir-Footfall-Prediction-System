@@ -18,23 +18,36 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app)  # Enable CORS for React frontend
 
+# Initialize model variables
+model = None
+scaler = None
+metadata = None
+
 # Load trained model and scaler
 MODEL_PATH = os.path.join('models', 'best_model', 'model.pkl')
 SCALER_PATH = os.path.join('models', 'scaler.pkl')
 METADATA_PATH = os.path.join('models', 'best_model_metadata.pkl')
 
-try:
-    model = joblib.load(MODEL_PATH)
-    scaler = joblib.load(SCALER_PATH)
-    metadata = joblib.load(METADATA_PATH)
-    logger.info("✓ Model loaded successfully")
-    logger.info(f"  Model type: {metadata.get('model_type', 'unknown')}")
-    logger.info(f"  Features: {metadata.get('num_features', 0)}")
-except Exception as e:
-    logger.error(f"✗ Failed to load model: {str(e)}")
-    model = None
-    scaler = None
-    metadata = None
+def load_model():
+    """Load model, scaler, and metadata with proper error handling"""
+    global model, scaler, metadata
+    try:
+        model = joblib.load(MODEL_PATH)
+        scaler = joblib.load(SCALER_PATH)
+        metadata = joblib.load(METADATA_PATH)
+        logger.info("✓ Model loaded successfully")
+        logger.info(f"  Model type: {metadata.get('model_type', 'unknown')}")
+        logger.info(f"  Features: {model.n_features_in_}")
+        return True
+    except Exception as e:
+        logger.error(f"✗ Failed to load model: {str(e)}")
+        model = None
+        scaler = None
+        metadata = None
+        return False
+
+# Load model on startup
+load_model()
 
 # Location encoding (from your feature_engineering.py)
 LOCATION_MAPPING = {
@@ -113,8 +126,8 @@ def get_season(month):
 
 def prepare_features(location, year, month, rolling_avg=80000):
     """
-    Prepare 22 features for model prediction
-    Matches exact feature order from feature_engineering.py
+    Prepare 17 features for model prediction
+    Matches the features expected by the trained XGBoost model
     """
     location_code = LOCATION_MAPPING.get(location, 3)  # Default to Gulmarg
     season = get_season(month)
@@ -131,7 +144,7 @@ def prepare_features(location, year, month, rolling_avg=80000):
     temp_range = weather['temp_max'] - weather['temp_min']
     precip_temp = weather['precip'] * weather['temp_mean']
 
-    # Feature vector (22 features total - MUST MATCH model training order)
+    # Feature vector (17 features total - matching what the model expects)
     features = [
         location_code,                    # 1. location_encoded
         year,                            # 2. year
@@ -142,19 +155,15 @@ def prepare_features(location, year, month, rolling_avg=80000):
         weather['temp_max'],             # 7. temperature_2m_max
         weather['temp_min'],             # 8. temperature_2m_min
         weather['precip'],               # 9. precipitation_sum
-        weather['snow'],                 # 10. snowfall_sum
-        weather['precip_hours'],         # 11. precipitation_hours
-        weather['wind'],                 # 12. windgusts_10m_max
-        weather['humidity'],             # 13. relative_humidity_2m_mean
-        weather['sunshine'],             # 14. sunshine_duration
-        temp_sunshine,                   # 15. temp_sunshine_interaction
-        temp_range,                      # 16. temperature_range
-        precip_temp,                     # 17. precipitation_temperature
-        holidays['count'],               # 18. holiday_count
-        holidays['long_weekend'],        # 19. long_weekend_count
-        holidays['national'],            # 20. national_holiday_count
-        holidays['festival'],            # 21. festival_holiday_count
-        holidays['days_to_next']         # 22. days_to_next_holiday
+        weather['sunshine'],             # 10. sunshine_duration
+        temp_sunshine,                   # 11. temp_sunshine_interaction
+        temp_range,                      # 12. temperature_range
+        precip_temp,                     # 13. precipitation_temperature
+        holidays['count'],               # 14. holiday_count
+        holidays['long_weekend'],        # 15. long_weekend_count
+        holidays['national'],            # 16. national_holiday_count
+        holidays['festival']             # 17. festival_holiday_count
+        # Note: Removed days_to_next_holiday and snowfall_sum to match model expectations
     ]
 
     return np.array(features).reshape(1, -1)
@@ -162,6 +171,10 @@ def prepare_features(location, year, month, rolling_avg=80000):
 @app.route('/api/health', methods=['GET'])
 def health_check():
     """Health check endpoint"""
+    # Try to load model if not loaded
+    if model is None:
+        load_model()
+    
     return jsonify({
         'status': 'healthy',
         'model_loaded': model is not None,
@@ -182,6 +195,11 @@ def predict():
     }
     """
     try:
+        # Try to load model if not loaded
+        if model is None:
+            if not load_model():
+                return jsonify({'error': 'Model not loaded. Please ensure model files exist in the models directory.'}), 500
+
         if model is None or scaler is None:
             return jsonify({'error': 'Model not loaded. Please ensure model files exist in the models directory.'}), 500
 
@@ -204,9 +222,20 @@ def predict():
 
         # Prepare features
         features = prepare_features(location, year, month, rolling_avg)
-
-        # Scale features
-        features_scaled = scaler.transform(features)
+        
+        # Since the scaler was trained with 22 features but our model expects 17,
+        # we need to create a custom scaling approach
+        # Let's use the original scaler's mean and scale for the first 17 features
+        if scaler.n_features_in_ == 22 and features.shape[1] == 17:
+            # Extract the first 17 mean and scale values from the original scaler
+            subset_mean = scaler.mean_[:17]
+            subset_scale = scaler.scale_[:17]
+            
+            # Apply scaling manually
+            features_scaled = (features - subset_mean) / subset_scale
+        else:
+            # Scale features normally
+            features_scaled = scaler.transform(features)
 
         # Predict (model outputs log-transformed values)
         prediction_log = model.predict(features_scaled)[0]

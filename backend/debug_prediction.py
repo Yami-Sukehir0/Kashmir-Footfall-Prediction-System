@@ -1,75 +1,106 @@
+#!/usr/bin/env python3
 """
-Debug script to test the model prediction step by step
+Debug script to test model predictions with adjusted features
 """
+
 import joblib
 import numpy as np
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.preprocessing import StandardScaler
+from app import prepare_features
 
-# Load the model and scaler
-print("Loading model and scaler...")
+# Load model and scaler
 model = joblib.load('models/best_model/model.pkl')
 scaler = joblib.load('models/scaler.pkl')
 
-print(f"Model type: {type(model)}")
-print(f"Scaler type: {type(scaler)}")
+print("=== Model Debug Information ===")
+print(f"Model type: {type(model).__name__}")
+print(f"Expected features: {model.n_features_in_}")
+print(f"Scaler features: {scaler.n_features_in_}")
 
-# Create test features (same as in app.py)
-features = np.array([[
-    3,      # location_code (Gulmarg)
-    2024,   # year
-    12,     # month
-    1,      # season (Winter)
-    80000,  # rolling_avg
-    -1,     # temp_mean
-    4,      # temp_max
-    -6,     # temp_min
-    140,    # precip
-    70,     # snow
-    190,    # precip_hours
-    34,     # wind
-    74,     # humidity
-    130,    # sunshine
-    -130,   # temp_sunshine_interaction
-    10,     # temp_range
-    -140,   # precip_temp
-    4,      # holiday_count
-    2,      # long_weekend_count
-    2,      # national_holiday_count
-    2,      # festival_holiday_count
-    3       # days_to_next_holiday
-]]).reshape(1, -1)
+# Test with Gulmarg in December
+location, year, month = "Gulmarg", 2024, 12
+print(f"\n=== Testing {location} {year}-{month:02d} ===")
 
-print(f"Features shape: {features.shape}")
-print(f"Features values: {features}")
+# Prepare features using our function
+features = prepare_features(location, year, month, 80000)
+print(f"Original features: {features}")
 
-# Scale features
-features_scaled = scaler.transform(features)
-print(f"Scaled features shape: {features_scaled.shape}")
-print(f"Scaled features min/max: {features_scaled.min():.2f} / {features_scaled.max():.2f}")
+# Let's try to adjust the features to be closer to what the scaler expects
+# Based on the scaler mean values: [5.63, 2024.71, 5.73, 2.46, 79859.31...]
+# Let's adjust our features to be closer to these means
 
-# Make prediction
+# Get the scaler means and scales for the first 17 features
+subset_mean = scaler.mean_[:17]
+subset_scale = scaler.scale_[:17]
+
+print(f"Scaler means: {subset_mean}")
+print(f"Scaler scales: {subset_scale}")
+
+# Scale our features using the scaler
+features_scaled = (features - subset_mean) / subset_scale
+print(f"Scaled features: {features_scaled}")
+
+# Predict
 prediction_log = model.predict(features_scaled)[0]
 print(f"Log prediction: {prediction_log}")
 
-# Check for extreme values
-if abs(prediction_log) > 100:
-    print("WARNING: Extreme prediction value detected!")
-    prediction_log = np.clip(prediction_log, -10, 10)  # Clip to reasonable range
-    print(f"Clipped log prediction: {prediction_log}")
+# Try to get a better prediction by adjusting the input features to be closer to the training data
+print("\n=== Trying adjusted features ===")
 
-# Inverse log transform
+# Let's try to create features that are closer to the mean values
+adjusted_features = np.array([
+    5.63,    # location (closer to mean)
+    2024.71, # year (closer to mean)
+    5.73,    # month (closer to mean)
+    2.46,    # season (closer to mean)
+    79859.31,# rolling_avg (closer to mean)
+    10,      # temp_mean (reasonable value)
+    15,      # temp_max (reasonable value)
+    5,       # temp_min (reasonable value)
+    50,      # precip (reasonable value)
+    200,     # sunshine (reasonable value)
+    2000,    # temp_sunshine_interaction (derived)
+    10,      # temp_range (derived)
+    500,     # precip_temp (derived)
+    2,       # holiday_count (reasonable value)
+    1,       # long_weekend_count (reasonable value)
+    1,       # national_holiday_count (reasonable value)
+    1        # festival_holiday_count (reasonable value)
+]).reshape(1, -1)
+
+print(f"Adjusted features: {adjusted_features}")
+
+# Scale the adjusted features
+adjusted_features_scaled = (adjusted_features - subset_mean) / subset_scale
+print(f"Adjusted scaled features: {adjusted_features_scaled}")
+
+# Predict with adjusted features
+prediction_log_adjusted = model.predict(adjusted_features_scaled)[0]
+print(f"Adjusted log prediction: {prediction_log_adjusted}")
+
+# Try inverse transform
 try:
-    prediction = np.expm1(prediction_log)
-    print(f"Inverse log prediction: {prediction}")
+    prediction_adjusted = np.expm1(prediction_log_adjusted)
+    print(f"Adjusted final prediction: {int(prediction_adjusted):,}")
 except:
-    print("Error in expm1, using fallback")
-    prediction = np.exp(prediction_log) - 1
+    prediction_adjusted = np.exp(prediction_log_adjusted) - 1
+    print(f"Adjusted final prediction (exp fallback): {int(prediction_adjusted):,}")
 
-# Ensure non-negative and reasonable
-if np.isinf(prediction) or np.isnan(prediction):
-    prediction = 50000  # Default reasonable value
-else:
-    prediction = max(0, min(prediction, 200000))  # Clip to reasonable range
-
-print(f"Final prediction: {prediction}")
+# Let's also try to understand what range of predictions the model can make
+print("\n=== Testing prediction range ===")
+# Try with features that are 1, 2, and 3 standard deviations from the mean
+for std_dev in [1, 2, 3]:
+    high_features = (subset_mean + std_dev * subset_scale).reshape(1, -1)
+    low_features = (subset_mean - std_dev * subset_scale).reshape(1, -1)
+    
+    high_pred = model.predict(high_features)[0]
+    low_pred = model.predict(low_features)[0]
+    
+    print(f"{std_dev} std dev high: log={high_pred:.4f}")
+    print(f"{std_dev} std dev low: log={low_pred:.4f}")
+    
+    try:
+        high_final = np.expm1(high_pred)
+        low_final = np.expm1(low_pred)
+        print(f"  Final predictions: high={int(high_final):,}, low={int(low_final):,}")
+    except:
+        print(f"  Final predictions: high={np.exp(high_pred)-1:.0f}, low={np.exp(low_pred)-1:.0f}")
