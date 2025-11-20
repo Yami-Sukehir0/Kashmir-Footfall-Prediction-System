@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Debug script to test model predictions with adjusted features
+Debug script to test model predictions and understand the transformation
 """
 
 import joblib
@@ -16,91 +16,120 @@ print(f"Model type: {type(model).__name__}")
 print(f"Expected features: {model.n_features_in_}")
 print(f"Scaler features: {scaler.n_features_in_}")
 
-# Test with Gulmarg in December
-location, year, month = "Gulmarg", 2024, 12
-print(f"\n=== Testing {location} {year}-{month:02d} ===")
-
-# Prepare features using our function
-features = prepare_features(location, year, month, 80000)
-print(f"Original features: {features}")
-
-# Let's try to adjust the features to be closer to what the scaler expects
-# Based on the scaler mean values: [5.63, 2024.71, 5.73, 2.46, 79859.31...]
-# Let's adjust our features to be closer to these means
-
-# Get the scaler means and scales for the first 17 features
-subset_mean = scaler.mean_[:17]
-subset_scale = scaler.scale_[:17]
-
-print(f"Scaler means: {subset_mean}")
-print(f"Scaler scales: {subset_scale}")
-
-# Scale our features using the scaler
-features_scaled = (features - subset_mean) / subset_scale
-print(f"Scaled features: {features_scaled}")
-
-# Predict
-prediction_log = model.predict(features_scaled)[0]
-print(f"Log prediction: {prediction_log}")
-
-# Try to get a better prediction by adjusting the input features to be closer to the training data
-print("\n=== Trying adjusted features ===")
-
-# Let's try to create features that are closer to the mean values
-adjusted_features = np.array([
-    5.63,    # location (closer to mean)
-    2024.71, # year (closer to mean)
-    5.73,    # month (closer to mean)
-    2.46,    # season (closer to mean)
-    79859.31,# rolling_avg (closer to mean)
-    10,      # temp_mean (reasonable value)
-    15,      # temp_max (reasonable value)
-    5,       # temp_min (reasonable value)
-    50,      # precip (reasonable value)
-    200,     # sunshine (reasonable value)
-    2000,    # temp_sunshine_interaction (derived)
-    10,      # temp_range (derived)
-    500,     # precip_temp (derived)
-    2,       # holiday_count (reasonable value)
-    1,       # long_weekend_count (reasonable value)
-    1,       # national_holiday_count (reasonable value)
-    1        # festival_holiday_count (reasonable value)
-]).reshape(1, -1)
-
-print(f"Adjusted features: {adjusted_features}")
-
-# Scale the adjusted features
-adjusted_features_scaled = (adjusted_features - subset_mean) / subset_scale
-print(f"Adjusted scaled features: {adjusted_features_scaled}")
-
-# Predict with adjusted features
-prediction_log_adjusted = model.predict(adjusted_features_scaled)[0]
-print(f"Adjusted log prediction: {prediction_log_adjusted}")
-
-# Try inverse transform
-try:
-    prediction_adjusted = np.expm1(prediction_log_adjusted)
-    print(f"Adjusted final prediction: {int(prediction_adjusted):,}")
-except:
-    prediction_adjusted = np.exp(prediction_log_adjusted) - 1
-    print(f"Adjusted final prediction (exp fallback): {int(prediction_adjusted):,}")
-
-# Let's also try to understand what range of predictions the model can make
-print("\n=== Testing prediction range ===")
-# Try with features that are 1, 2, and 3 standard deviations from the mean
-for std_dev in [1, 2, 3]:
-    high_features = (subset_mean + std_dev * subset_scale).reshape(1, -1)
-    low_features = (subset_mean - std_dev * subset_scale).reshape(1, -1)
-    
-    high_pred = model.predict(high_features)[0]
-    low_pred = model.predict(low_features)[0]
-    
-    print(f"{std_dev} std dev high: log={high_pred:.4f}")
-    print(f"{std_dev} std dev low: log={low_pred:.4f}")
-    
+# Test different log values to understand the transformation
+print("\n=== Understanding log transformation ===")
+test_log_values = [0.1, 0.5, 1.0, 2.0, 5.0, 10.0]
+for log_val in test_log_values:
     try:
-        high_final = np.expm1(high_pred)
-        low_final = np.expm1(low_pred)
-        print(f"  Final predictions: high={int(high_final):,}, low={int(low_final):,}")
+        transformed = np.expm1(log_val)
+        print(f"log={log_val:.1f} -> expm1={transformed:.0f}")
     except:
-        print(f"  Final predictions: high={np.exp(high_pred)-1:.0f}, low={np.exp(low_pred)-1:.0f}")
+        transformed = np.exp(log_val) - 1
+        print(f"log={log_val:.1f} -> exp-1={transformed:.0f}")
+
+# Test what inputs give us reasonable outputs
+print("\n=== Finding reasonable inputs ===")
+
+# Try a range of values to see what gives us good predictions
+best_prediction = 0
+best_log_value = 0
+best_features = None
+
+# Generate random features and test them
+np.random.seed(42)  # For reproducibility
+for i in range(1000):
+    # Generate random features that are reasonable
+    random_features = np.array([
+        np.random.randint(1, 11),           # location (1-10)
+        np.random.randint(2020, 2026),      # year
+        np.random.randint(1, 13),           # month
+        np.random.randint(1, 5),            # season
+        np.random.randint(50000, 150000),   # rolling_avg
+        np.random.uniform(-10, 30),         # temp_mean
+        np.random.uniform(-5, 35),          # temp_max
+        np.random.uniform(-15, 25),         # temp_min
+        np.random.uniform(0, 200),          # precip
+        np.random.uniform(0, 300),          # sunshine
+        np.random.uniform(-5000, 5000),     # temp_sunshine_interaction
+        np.random.uniform(0, 40),           # temp_range
+        np.random.uniform(-5000, 5000),     # precip_temp
+        np.random.randint(0, 10),           # holiday_count
+        np.random.randint(0, 5),            # long_weekend_count
+        np.random.randint(0, 5),            # national_holiday_count
+        np.random.randint(0, 5)             # festival_holiday_count
+    ]).reshape(1, -1)
+    
+    # Scale the features
+    subset_mean = scaler.mean_[:17]
+    subset_scale = scaler.scale_[:17]
+    scaled_features = (random_features - subset_mean) / subset_scale
+    
+    # Predict
+    try:
+        prediction_log = model.predict(scaled_features)[0]
+        
+        # Check if this is a better prediction
+        if prediction_log > best_log_value and prediction_log < 10:  # Reasonable range
+            best_log_value = prediction_log
+            best_features = random_features.copy()
+            
+        # If we found a good prediction, break
+        if prediction_log > 2.0:  # This should give us a reasonable number of visitors
+            print(f"Found good prediction! Log value: {prediction_log:.4f}")
+            try:
+                final_pred = np.expm1(prediction_log)
+                print(f"Final prediction: {int(final_pred):,} visitors")
+                print(f"Features: {random_features}")
+                break
+            except:
+                final_pred = np.exp(prediction_log) - 1
+                print(f"Final prediction (exp fallback): {int(final_pred):,} visitors")
+                print(f"Features: {random_features}")
+                break
+    except Exception as e:
+        continue
+
+# If we found good features, let's test them with our actual locations
+if best_features is not None:
+    print(f"\n=== Testing with best features found ===")
+    print(f"Best log value: {best_log_value:.4f}")
+    try:
+        final_pred = np.expm1(best_log_value)
+        print(f"Best final prediction: {int(final_pred):,} visitors")
+    except:
+        final_pred = np.exp(best_log_value) - 1
+        print(f"Best final prediction (exp fallback): {int(final_pred):,} visitors")
+else:
+    print("\n=== No good predictions found in random search ===")
+    
+    # Let's try a more systematic approach
+    print("=== Testing with systematic values ===")
+    
+    # Try some systematic values that might work
+    systematic_features = [
+        # High tourism months
+        [8, 2024, 6, 3, 100000, 25, 30, 20, 30, 280, 7000, 10, 750, 2, 1, 1, 1],  # June, high temp, lots of sunshine
+        [8, 2024, 7, 3, 90000, 28, 33, 23, 20, 300, 8400, 10, 560, 1, 0, 0, 1],   # July, summer peak
+        # Low tourism months
+        [3, 2024, 12, 1, 60000, -2, 3, -7, 150, 120, -240, 10, -300, 4, 2, 2, 2], # December, winter, Gulmarg
+        [8, 2024, 1, 1, 50000, 2, 7, -3, 120, 140, 280, 10, 240, 3, 1, 1, 2],     # January, winter
+    ]
+    
+    for i, feature_list in enumerate(systematic_features):
+        features = np.array(feature_list).reshape(1, -1)
+        subset_mean = scaler.mean_[:17]
+        subset_scale = scaler.scale_[:17]
+        scaled_features = (features - subset_mean) / subset_scale
+        
+        try:
+            prediction_log = model.predict(scaled_features)[0]
+            print(f"Systematic test {i+1}: log={prediction_log:.4f}")
+            
+            try:
+                final_pred = np.expm1(prediction_log)
+                print(f"  Final prediction: {int(final_pred):,} visitors")
+            except:
+                final_pred = np.exp(prediction_log) - 1
+                print(f"  Final prediction (exp fallback): {int(final_pred):,} visitors")
+        except Exception as e:
+            print(f"Systematic test {i+1}: Error - {e}")
