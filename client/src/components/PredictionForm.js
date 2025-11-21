@@ -30,6 +30,52 @@ function PredictionForm({ locations, onPredict, loading }) {
     }
   };
 
+  // Intelligent rolling average calculation based on location and month
+  const calculateIntelligentRollingAvg = (location, month) => {
+    // Location-based base values (typical monthly averages)
+    const locationAverages = {
+      'Gulmarg': 25000,      // Popular ski resort
+      'Pahalgam': 35000,     // Popular valley destination
+      'Sonamarg': 20000,     // Beautiful valley
+      'Yousmarg': 15000,     // Emerging destination
+      'Doodpathri': 8000,    // Nearby attraction
+      'Kokernag': 6000,      // Lesser known
+      'Lolab': 5000,         // Remote valley
+      'Manasbal': 12000,     // Beautiful lake
+      'Aharbal': 4000,       // Waterfall destination
+      'Gurez': 3000          // Very remote
+    };
+
+    // Seasonal multipliers (peak seasons get higher multipliers)
+    const seasonalMultipliers = {
+      'Gulmarg': {
+        12: 3.0, 1: 2.8, 2: 2.2,  // Winter peak
+        3: 0.7, 6: 0.4, 7: 0.3, 8: 0.4  // Summer off-season
+      },
+      'Pahalgam': {
+        5: 1.2, 6: 2.5, 7: 2.3, 8: 2.0, 9: 1.5,  // Summer peak
+        12: 0.5, 1: 0.4, 2: 0.3  // Winter off-season
+      },
+      'Sonamarg': {
+        5: 1.3, 6: 1.8, 7: 1.7, 8: 1.5, 9: 1.2,  // Spring/Summer
+        12: 0.6, 1: 0.5, 2: 0.4  // Winter
+      }
+    };
+
+    // Default seasonal pattern for other locations
+    const defaultSeasonal = {
+      1: 0.6, 2: 0.7, 3: 0.9, 4: 1.0, 5: 1.2,
+      6: 1.5, 7: 1.7, 8: 1.6, 9: 1.3, 10: 1.0,
+      11: 0.8, 12: 0.7
+    };
+
+    const baseAvg = locationAverages[location] || 12000;
+    const locationPattern = seasonalMultipliers[location] || defaultSeasonal;
+    const multiplier = locationPattern[month] || defaultSeasonal[month] || 1.0;
+
+    return Math.round(baseAvg * multiplier);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     const newValue = name === 'rolling_avg' || name === 'year' || name === 'month' ? 
@@ -43,6 +89,27 @@ function PredictionForm({ locations, onPredict, loading }) {
     // Validate location
     if (name === 'location') {
       setIsLocationValid(locations.includes(newValue));
+      // Auto-update rolling average when location changes
+      if (newValue && locations.includes(newValue)) {
+        const intelligentAvg = calculateIntelligentRollingAvg(newValue, formData.month);
+        setFormData(prev => ({
+          ...prev,
+          location: newValue,
+          rolling_avg: intelligentAvg
+        }));
+      }
+    }
+    
+    // Auto-update rolling average when month changes
+    if (name === 'month') {
+      if (formData.location) {
+        const intelligentAvg = calculateIntelligentRollingAvg(formData.location, newValue);
+        setFormData(prev => ({
+          ...prev,
+          month: newValue,
+          rolling_avg: intelligentAvg
+        }));
+      }
     }
   };
 
@@ -120,9 +187,11 @@ function PredictionForm({ locations, onPredict, loading }) {
 
   // Quick selection buttons
   const quickSelectLocation = (location) => {
+    const intelligentAvg = calculateIntelligentRollingAvg(location, formData.month);
     setFormData(prev => ({
       ...prev,
-      location
+      location,
+      rolling_avg: intelligentAvg
     }));
     setIsLocationValid(true);
   };
@@ -130,10 +199,13 @@ function PredictionForm({ locations, onPredict, loading }) {
   const quickSelectTime = (monthsFromNow) => {
     const date = new Date();
     date.setMonth(date.getMonth() + monthsFromNow);
+    const intelligentAvg = formData.location ? 
+      calculateIntelligentRollingAvg(formData.location, date.getMonth() + 1) : 80000;
     setFormData(prev => ({
       ...prev,
       year: date.getFullYear(),
-      month: date.getMonth() + 1
+      month: date.getMonth() + 1,
+      rolling_avg: intelligentAvg
     }));
   };
 
@@ -279,8 +351,7 @@ function PredictionForm({ locations, onPredict, loading }) {
               className="rolling-avg-input"
             />
             <div className="input-hint">
-              Previous period average footfall (default: 80,000). 
-              This helps improve prediction accuracy.
+              Auto-calculated based on location/season. Edit to override.
             </div>
           </div>
         </div>
@@ -308,11 +379,13 @@ function PredictionForm({ locations, onPredict, loading }) {
             type="button" 
             className="btn btn-reset"
             onClick={() => {
+              const intelligentAvg = locations.length > 0 ? 
+                calculateIntelligentRollingAvg(locations[0], new Date().getMonth() + 1) : 80000;
               setFormData({
                 location: locations.length > 0 ? locations[0] : '',
                 year: currentYear,
                 month: new Date().getMonth() + 1,
-                rolling_avg: 80000
+                rolling_avg: intelligentAvg
               });
               setIsLocationValid(locations.length > 0);
             }}

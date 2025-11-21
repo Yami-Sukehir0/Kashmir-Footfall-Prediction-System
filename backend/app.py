@@ -230,10 +230,26 @@ def predict():
             'Gurez': 2500          # Very remote
         }
         
-        base_visitors = location_base.get(location, 12000)
+        # Use rolling average as baseline if provided and reasonable
+        # This allows the system to adapt to recent trends
+        if rolling_avg and 1000 <= rolling_avg <= 100000:
+            base_visitors = rolling_avg * 0.4  # Use 40% of rolling average as baseline
+        else:
+            base_visitors = location_base.get(location, 12000)
         
         # Historical growth trend (Kashmir tourism has been growing)
         growth_factor = 1.0 + (year - 2020) * 0.08  # 8% annual growth
+        
+        # Adjust growth factor based on recent trends
+        # If rolling average is significantly higher than location baseline, 
+        # it indicates positive momentum
+        location_baseline = location_base.get(location, 12000)
+        if rolling_avg and rolling_avg > location_baseline * 1.2:
+            # Positive momentum - slightly boost growth factor
+            growth_factor *= 1.05
+        elif rolling_avg and rolling_avg < location_baseline * 0.8:
+            # Negative momentum - slightly reduce growth factor
+            growth_factor *= 0.95
         
         # Seasonal patterns based on Kashmir tourism data
         seasonal_patterns = {
@@ -321,14 +337,51 @@ def predict():
         # Ensure reasonable bounds
         prediction = max(800, min(prediction, 65000))
         
-        # Calculate comparative analysis
-        previous_year = year - 1
-        previous_prediction = base_visitors * (1.0 + (previous_year - 2020) * 0.08) * seasonal_multiplier * weather_multiplier * holiday_multiplier * weekend_effect
-        previous_prediction = max(800, min(previous_prediction, 65000))
+        # Intelligent comparative analysis
+        current_date = datetime.now()
+        current_year = current_date.year
+        current_month = current_date.month
         
-        year_over_year_change = ((prediction - previous_prediction) / previous_prediction) * 100
+        # Determine comparison strategy based on how far in the future the prediction is
+        months_ahead = (year - current_year) * 12 + (month - current_month)
         
-        # Calculate confidence based on multiple factors
+        comparative_data = {}
+        
+        if months_ahead <= 1:
+            # For current or next month, compare with actual previous month
+            prev_month = month - 1 if month > 1 else 12
+            prev_year = year if month > 1 else year - 1
+            
+            prev_month_prediction = base_visitors * (1.0 + (prev_year - 2020) * 0.08) * \
+                                   (location_pattern.get(prev_month, default_seasonal[prev_month])['multiplier']) * \
+                                   weather_multiplier * holiday_multiplier * weekend_effect
+            prev_month_prediction = max(800, min(prev_month_prediction, 65000))
+            
+            change = ((prediction - prev_month_prediction) / prev_month_prediction) * 100 if prev_month_prediction != 0 else 0
+            comparative_data = {
+                'comparison_type': 'previous_month',
+                'reference_period': f"{prev_month}/{prev_year}",
+                'reference_value': int(round(prev_month_prediction)),
+                'change': round(change, 1),
+                'trend': 'increase' if change > 0 else 'decrease'
+            }
+        else:
+            # For future months, compare with same month last year trend
+            prev_year_same_month = base_visitors * (1.0 + (year - 1 - 2020) * 0.08) * \
+                                  (location_pattern.get(month, default_seasonal[month])['multiplier']) * \
+                                  weather_multiplier * holiday_multiplier * weekend_effect
+            prev_year_same_month = max(800, min(prev_year_same_month, 65000))
+            
+            change = ((prediction - prev_year_same_month) / prev_year_same_month) * 100 if prev_year_same_month != 0 else 0
+            comparative_data = {
+                'comparison_type': 'same_month_last_year',
+                'reference_period': f"{month}/{year - 1}",
+                'reference_value': int(round(prev_year_same_month)),
+                'change': round(change, 1),
+                'trend': 'increase' if change > 0 else 'decrease'
+            }
+        
+        # Adjust confidence based on rolling average reliability
         seasonal_confidence = {
             'peak': 0.95,
             'high': 0.90,
@@ -341,6 +394,14 @@ def predict():
         
         base_confidence = seasonal_confidence.get(seasonal_trend, 0.80)
         
+        # Adjust confidence based on rolling average input
+        if rolling_avg and 5000 <= rolling_avg <= 80000:
+            # Reasonable rolling average increases confidence
+            base_confidence = min(0.98, base_confidence * 1.1)
+        elif rolling_avg and (rolling_avg < 1000 or rolling_avg > 100000):
+            # Extreme values decrease confidence
+            base_confidence = max(0.5, base_confidence * 0.8)
+        
         # Adjust confidence based on weather conditions
         weather_stability = 1.0 - (abs(weather['temp_max'] - weather['temp_min']) / 30)  # More stable weather = higher confidence
         weather_confidence = 0.7 + 0.3 * weather_stability
@@ -350,8 +411,18 @@ def predict():
         
         confidence = min(0.98, (base_confidence + weather_confidence + holiday_confidence) / 3)
         
-        # Generate detailed insights
+        # Generate detailed insights including rolling average impact
         insights = []
+        
+        # Rolling average insight
+        if rolling_avg and 1000 <= rolling_avg <= 100000:
+            location_baseline = location_base.get(location, 12000)
+            if rolling_avg > location_baseline * 1.3:
+                insights.append(f"Strong recent momentum detected ({rolling_avg:,} avg visitors). Expect continued growth.")
+            elif rolling_avg < location_baseline * 0.7:
+                insights.append(f"Recent decline in visitors ({rolling_avg:,} avg). Recovery may be gradual.")
+            else:
+                insights.append(f"Stable recent performance ({rolling_avg:,} avg visitors) indicates predictable trends.")
         
         # Seasonal insight
         if seasonal_trend == 'peak':
@@ -376,11 +447,27 @@ def predict():
         elif holidays['count'] == 0:
             insights.append("No major holidays this month may result in lower tourist numbers.")
         
-        # Growth insight
-        if year_over_year_change > 10:
-            insights.append(f"Strong {year_over_year_change:.1f}% year-over-year growth indicates increasing popularity.")
-        elif year_over_year_change < 0:
-            insights.append(f"Decline of {abs(year_over_year_change):.1f}% from last year. Review marketing strategies.")
+        # Growth insight based on comparison type
+        if comparative_data['change'] > 15:
+            if comparative_data['comparison_type'] == 'previous_month':
+                insights.append(f"Strong {comparative_data['change']:.1f}% month-over-month growth indicates increasing popularity.")
+            else:
+                insights.append(f"Strong {comparative_data['change']:.1f}% year-over-year growth for {month}/{year}.")
+        elif comparative_data['change'] > 5:
+            if comparative_data['comparison_type'] == 'previous_month':
+                insights.append(f"Healthy {comparative_data['change']:.1f}% growth from last month.")
+            else:
+                insights.append(f"Steady {comparative_data['change']:.1f}% growth from same month last year.")
+        elif comparative_data['change'] < -10:
+            if comparative_data['comparison_type'] == 'previous_month':
+                insights.append(f"Significant decline of {abs(comparative_data['change']):.1f}% from last month. Review strategies.")
+            else:
+                insights.append(f"Decline of {abs(comparative_data['change']):.1f}% from same month last year.")
+        elif comparative_data['change'] < 0:
+            if comparative_data['comparison_type'] == 'previous_month':
+                insights.append(f"Small decline of {abs(comparative_data['change']):.1f}% from last month.")
+            else:
+                insights.append(f"Mild decline of {abs(comparative_data['change']):.1f}% from same month last year.")
         
         # Generate resource planning suggestions
         suggestions = []
@@ -415,6 +502,12 @@ def predict():
         elif weather['precip'] > 150:
             suggestions.append("Prepare for wet conditions with proper drainage and slip-resistant walkways.")
         
+        # Rolling average specific suggestions
+        if rolling_avg and rolling_avg > 40000:
+            suggestions.append("High recent visitor volume suggests need for enhanced crowd management protocols.")
+        elif rolling_avg and rolling_avg < 10000:
+            suggestions.append("Low recent visitor volume suggests opportunity for targeted promotional campaigns.")
+        
         # Response data
         response = {
             'success': True,
@@ -424,12 +517,7 @@ def predict():
                 'month': month,
                 'predicted_footfall': int(round(prediction)),
                 'confidence': round(confidence, 2),
-                'comparative_analysis': {
-                    'previous_year': previous_year,
-                    'previous_year_prediction': int(round(previous_prediction)),
-                    'year_over_year_change': round(year_over_year_change, 1),
-                    'trend': 'increase' if year_over_year_change > 0 else 'decrease'
-                },
+                'comparative_analysis': comparative_data,
                 'weather': {
                     'temperature_mean': weather['temp_mean'],
                     'temperature_max': weather['temp_max'],
@@ -451,7 +539,7 @@ def predict():
             'timestamp': datetime.now().isoformat()
         }
 
-        logger.info(f"Prediction: {location} {year}-{month:02d} → {int(prediction):,} visitors (YoY: {year_over_year_change:+.1f}%)")
+        logger.info(f"Prediction: {location} {year}-{month:02d} → {int(prediction):,} visitors (Change: {comparative_data['change']:+.1f}%, Rolling Avg: {rolling_avg or 'N/A'})")
 
         return jsonify(response)
 

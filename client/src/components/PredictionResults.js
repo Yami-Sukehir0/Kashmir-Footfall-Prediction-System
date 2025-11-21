@@ -116,7 +116,7 @@ function PredictionResults({ prediction }) {
                   <div className="card-sublabel">Visitors Expected</div>
                   <div className="trend-indicator">
                     <i className={`fas fa-arrow-${comparative_analysis.trend === 'increase' ? 'up' : 'down'}`}></i>
-                    <span>{Math.abs(comparative_analysis.year_over_year_change)}% {comparative_analysis.trend} from {comparative_analysis.previous_year}</span>
+                    <span>{Math.abs(comparative_analysis.change)}% {comparative_analysis.trend} from {comparative_analysis.reference_period}</span>
                   </div>
                 </div>
               </div>

@@ -56,10 +56,78 @@ app.get('/api/health', async (req, res) => {
     }
 });
 
-// Get all predictions (history)
+// Get all predictions (history) with filtering
 app.get('/api/predictions', async (req, res) => {
     try {
-        const predictions = await Prediction.find().sort({ createdAt: -1 }).limit(50);
+        const { location, year, month, limit = 50 } = req.query;
+        let query = {};
+        
+        if (location) query.location = location;
+        if (year) query.year = parseInt(year);
+        if (month) query.month = parseInt(month);
+        
+        const predictions = await Prediction.find(query)
+            .sort({ createdAt: -1 })
+            .limit(parseInt(limit));
+        res.json(predictions);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Get prediction statistics
+app.get('/api/predictions/stats', async (req, res) => {
+    try {
+        const stats = await Prediction.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalPredictions: { $sum: 1 },
+                    averageFootfall: { $avg: "$predictedFootfall" },
+                    maxFootfall: { $max: "$predictedFootfall" },
+                    minFootfall: { $min: "$predictedFootfall" },
+                    locations: { $addToSet: "$location" }
+                }
+            }
+        ]);
+        
+        // Get most predicted locations
+        const locationStats = await Prediction.aggregate([
+            {
+                $group: {
+                    _id: "$location",
+                    count: { $sum: 1 },
+                    averageFootfall: { $avg: "$predictedFootfall" }
+                }
+            },
+            { $sort: { count: -1 } },
+            { $limit: 5 }
+        ]);
+        
+        res.json({
+            overall: stats[0] || {},
+            topLocations: locationStats
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Get predictions by date range
+app.get('/api/predictions/range', async (req, res) => {
+    try {
+        const { start, end } = req.query;
+        
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        
+        const predictions = await Prediction.find({
+            createdAt: {
+                $gte: startDate,
+                $lte: endDate
+            }
+        }).sort({ createdAt: -1 });
+        
         res.json(predictions);
     } catch (error) {
         res.status(500).json({ error: error.message });
