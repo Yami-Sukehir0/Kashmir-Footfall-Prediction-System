@@ -110,9 +110,13 @@ app.post('/api/resources', async (req, res) => {
         const { footfall } = req.body;
 
         // Calculate resources based on footfall
+        // Assuming 50 staff per 1000 footfall
         const staff = Math.ceil(footfall / 50);
+        // Assuming 1000 vehicles per 1000 footfall
         const vehicles = Math.ceil(footfall / 1000);
+        // Assuming 2 rooms per 1000 footfall
         const rooms = Math.ceil((footfall * 0.30) / 2);
+        // Assuming 10 rupees per person
         const budget = (staff * 25000 + vehicles * 15000 + footfall * 10) * 1.15;
 
         res.json({
