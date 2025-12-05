@@ -216,6 +216,18 @@
   transform: translateY(-3px);
 }
 
+.btn-accent {
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  color: white;
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+}
+
+.btn-accent:hover {
+  background: linear-gradient(90deg, #7c3aed, #db2777);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
+}
+
 .hero-decoration {
   position: absolute;
   top: 0;

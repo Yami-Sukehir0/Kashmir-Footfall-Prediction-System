@@ -1,0 +1,10 @@
+--- Dashboard.jsx
++++ Dashboard.jsx
+@@ -17,7 +17,7 @@
+     try {
+       // Load statistics from the working endpoint
+-      const statsResponse = await axios.get(`${API_URL}/admin/stats`);
++      const statsResponse = await axios.get(`${API_URL}/predictions/stats`);
+       setStats(statsResponse.data);
+ 
+       // Load recent predictions

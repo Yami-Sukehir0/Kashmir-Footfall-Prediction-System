@@ -12,6 +12,9 @@ body {
   color: #ffffff;
 }
 
+/* Import Font Awesome for icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -52,6 +55,33 @@ body {
   gap: 12px;
   margin-top: 24px;
   font-size: 14px;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
 }
 
 @media (max-width: 768px) {

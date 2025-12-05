@@ -1,0 +1,131 @@
+.admin-resource-planner {
+  padding: 1.5rem;
+}
+
+.planner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.planner-header h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.planner-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.planner-content {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+.requirements-summary {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.requirements-summary h2 {
+  color: #1e293b;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.period {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.requirements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.requirement-card {
+  background: #f8fafc;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.requirement-card:hover {
+  transform: translateY(-3px);
+}
+
+.requirement-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: #dbeafe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b82f6;
+  font-size: 1.25rem;
+  margin: 0 auto 1rem;
+}
+
+.requirement-card h3 {
+  color: #1e293b;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.requirement-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 0.5rem;
+}
+
+.requirement-description {
+  color: #64748b;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.planner-placeholder {
+  text-align: center;
+  padding: 3rem;
+  color: #94a3b8;
+}
+
+.planner-placeholder i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #cbd5e1;
+}
+
+.planner-placeholder h3 {
+  color: #64748b;
+  margin-bottom: 0.5rem;
+}
+
+.planner-placeholder p {
+  color: #94a3b8;
+  margin: 0;
+}
+
+.planner-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: #64748b;
+}
+
+.planner-loading i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}

@@ -10,7 +10,6 @@ function PredictionForm({ locations, onPredict, loading }) {
     rolling_avg: 80000
   });
   
-  const [locationStats, setLocationStats] = useState(null);
   const [isLocationValid, setIsLocationValid] = useState(false);
 
   useEffect(() => {
@@ -21,7 +20,7 @@ function PredictionForm({ locations, onPredict, loading }) {
         location: locations[0]
       }));
     }
-  }, [locations]);
+  }, [locations, formData.location]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

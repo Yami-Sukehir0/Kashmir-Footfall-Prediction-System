@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Hero.css';
 
 function Hero() {
@@ -53,14 +54,18 @@ function Hero() {
         </div>
 
         <div className="cta-group" data-aos="fade-up" data-aos-delay="800">
-          <a href="#predict" className="btn btn-primary">
+          <Link to="/" className="btn btn-primary">
             <i className="fas fa-chart-line"></i>
             Make Prediction
-          </a>
-          <a href="#features" className="btn btn-secondary">
+          </Link>
+          <Link to="/features" className="btn btn-secondary">
             <i className="fas fa-info-circle"></i>
             Learn More
-          </a>
+          </Link>
+          <Link to="/auth/login" className="btn btn-accent">
+            <i className="fas fa-sign-in-alt"></i>
+            Admin Access
+          </Link>
         </div>
       </div>
       
