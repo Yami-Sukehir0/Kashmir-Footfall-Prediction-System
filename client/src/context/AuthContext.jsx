@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import {
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
 import { auth } from "../services/firebaseConfig";
+import {
+  login as authServiceLogin,
+  logout as authServiceLogout,
+} from "../services/authService";
 
 const AuthContext = createContext();
 
@@ -20,60 +19,95 @@ export const AuthProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      try {
-        if (user) {
-          setCurrentUser(user);
-          setIsAuthenticated(true);
+    let unsubscribe;
 
-          // Check if user is admin (in a real app, this would come from your backend)
-          // For demo purposes, we'll check if the email ends with @tourismkashmir.gov.in
-          const adminEmailPattern = /@tourismkashmir\.gov\.in$/;
-          setIsAdmin(adminEmailPattern.test(user.email));
-        } else {
-          setCurrentUser(null);
-          setIsAuthenticated(false);
-          setIsAdmin(false);
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
+    try {
+      console.log("Initializing Firebase auth listener");
+
+      // Check if auth is properly initialized
+      if (!auth || typeof auth.onAuthStateChanged !== "function") {
+        console.warn("Firebase auth not properly initialized");
         setLoading(false);
+        return;
       }
-    });
 
-    return unsubscribe;
+      // Use Firebase auth state change
+      unsubscribe = auth.onAuthStateChanged(
+        async (user) => {
+          try {
+            if (user) {
+              setCurrentUser(user);
+              setIsAuthenticated(true);
+
+              // Check if user is admin (in a real app, this would come from your backend)
+              // For demo purposes, we'll check if the email ends with @tourismkashmir.gov.in
+              const adminEmailPattern = /@tourismkashmir\.gov\.in$/;
+              setIsAdmin(adminEmailPattern.test(user.email));
+            } else {
+              setCurrentUser(null);
+              setIsAuthenticated(false);
+              setIsAdmin(false);
+            }
+          } catch (err) {
+            console.error("Auth state change error:", err);
+            setError("Authentication state error: " + err.message);
+          } finally {
+            setLoading(false);
+          }
+        },
+        (error) => {
+          console.error("Firebase auth state error:", error);
+          setError("Authentication service error: " + error.message);
+          setLoading(false);
+        }
+      );
+    } catch (err) {
+      console.error("Auth context initialization error:", err);
+      setError("Failed to initialize authentication: " + err.message);
+      setLoading(false);
+    }
+
+    // Cleanup function
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, []);
 
   const login = async (email, password) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      setCurrentUser(userCredential.user);
+      setError(null);
+
+      const user = await authServiceLogin(email, password);
+
+      setCurrentUser(user);
       setIsAuthenticated(true);
 
       // Check if user is admin
       const adminEmailPattern = /@tourismkashmir\.gov\.in$/;
-      setIsAdmin(adminEmailPattern.test(userCredential.user.email));
+      setIsAdmin(adminEmailPattern.test(user.email));
 
-      return userCredential.user;
+      return user;
     } catch (err) {
-      setError(err.message);
+      console.error("Login error in context:", err);
+      setError(err.message || "Failed to login. Please try again.");
       throw err;
     }
   };
 
   const logout = async () => {
     try {
-      await signOut(auth);
+      setError(null);
+
+      await authServiceLogout();
+
       setCurrentUser(null);
       setIsAuthenticated(false);
       setIsAdmin(false);
     } catch (err) {
-      setError(err.message);
+      console.error("Logout error in context:", err);
+      setError(err.message || "Failed to logout. Please try again.");
       throw err;
     }
   };
@@ -91,9 +125,5 @@ export const AuthProvider = ({ children }) => {
     setIsAdmin,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

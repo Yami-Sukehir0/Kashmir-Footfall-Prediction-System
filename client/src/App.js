@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import ProtectedRoute from './components/new_common/ProtectedRoute';
 import LoginPage from './components/new_auth/LoginPage';
 import SignupPage from './components/new_auth/SignupPage';
@@ -18,21 +19,37 @@ import ResourcePlanner from './components/new_admin/ResourcePlanner/ResourcePlan
 import UserManagement from './components/new_admin/UserManagement/UserManagement';
 import ActivityLogs from './components/new_admin/ActivityLogs/ActivityLogs';
 import Profile from './components/new_admin/Profile/Profile';
+import TestImagesSlider from './components/pages/TestImagesSlider';
+import FirebaseDiagnostic from './FirebaseDiagnostic';
 import './App.css';
 import './components/new_common/layout.css';
 import './components/new_auth/auth.css';
 
+// Test environment variables
+console.log('=== Environment Variable Test ===');
+console.log('REACT_APP_FIREBASE_API_KEY:', process.env.REACT_APP_FIREBASE_API_KEY ? 'SET' : 'NOT SET');
+console.log('REACT_APP_FIREBASE_PROJECT_ID:', process.env.REACT_APP_FIREBASE_PROJECT_ID ? 'SET' : 'NOT SET');
+console.log('REACT_APP_FIREBASE_AUTH_DOMAIN:', process.env.REACT_APP_FIREBASE_AUTH_DOMAIN ? 'SET' : 'NOT SET');
+console.log('Firebase Configured:', !!(
+  process.env.REACT_APP_FIREBASE_API_KEY &&
+  process.env.REACT_APP_FIREBASE_AUTH_DOMAIN &&
+  process.env.REACT_APP_FIREBASE_PROJECT_ID
+));
+
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <Routes>
+      <ThemeProvider>
+        <AuthProvider>
+          <Routes>
           {/* Public routes */}
           <Route path="/" element={<PublicLayout />}> 
             <Route index element={<HomePage />} />
             <Route path="features" element={<FeaturesPage />} />
             <Route path="locations" element={<LocationsPage />} />
             <Route path="about" element={<AboutPage />} />
+            <Route path="test-slider" element={<TestImagesSlider />} />
+            <Route path="diagnostic" element={<FirebaseDiagnostic />} />
           </Route>
           
           {/* Authentication routes */}
@@ -64,9 +81,10 @@ function App() {
           {/* Fallback route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </AuthProvider>
-    </Router>
-  );
+          </AuthProvider>
+        </ThemeProvider>
+      </Router>
+    );
 }
 
 export default App;

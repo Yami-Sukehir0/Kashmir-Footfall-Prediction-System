@@ -12,6 +12,26 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Basic validation
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
+    }
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    // Password length validation
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
@@ -19,9 +39,18 @@ const LoginPage = () => {
       await login(email, password);
       navigate("/admin/dashboard");
     } catch (err) {
-      setError(
-        err.message || "Failed to login. Please check your credentials."
-      );
+      console.error("Login error:", err);
+      // Provide more specific error messages
+      if (err.message.includes("invalid-credential")) {
+        setError("Invalid credentials. Please check your email and password.");
+      } else if (err.message.includes("network")) {
+        setError("Network error. Please check your internet connection.");
+      } else {
+        setError(
+          err.message ||
+            "Failed to login. Please check your credentials and try again."
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -47,6 +76,7 @@ const LoginPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="admin@tourismkashmir.gov.in"
+              disabled={loading}
             />
           </div>
 
@@ -59,11 +89,18 @@ const LoginPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="Enter your secure password"
+              disabled={loading}
             />
           </div>
 
           <button type="submit" disabled={loading} className="btn btn-primary">
-            {loading ? "Authenticating..." : "Sign In"}
+            {loading ? (
+              <>
+                <i className="fas fa-spinner fa-spin"></i> Authenticating...
+              </>
+            ) : (
+              "Sign In"
+            )}
           </button>
         </form>
 
