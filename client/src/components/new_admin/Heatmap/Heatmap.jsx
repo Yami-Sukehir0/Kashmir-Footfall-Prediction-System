@@ -13,12 +13,69 @@ const Heatmap = () => {
   const loadHeatmapData = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${API_URL}/admin/heatmap`, {
+      const response = await axios.get(`${API_URL}/admin/heatmap-data`, {
         params: { month: selectedMonth, year: selectedYear },
       });
-      setHeatmapData(response.data.heatmap || []);
+
+      // Process the heatmap data to include department-relevant information
+      const processedData = (response.data || []).map((location) => ({
+        ...location,
+        resourceName: `${location.name}-${selectedYear}-${selectedMonth}`,
+        riskLevel:
+          location.density > 0.8
+            ? "Critical"
+            : location.density > 0.6
+            ? "Warning"
+            : "Normal",
+        resourceNeeds: {
+          staff: Math.ceil(location.expectedVisitors / 50),
+          vehicles: Math.ceil(location.expectedVisitors / 1000),
+          emergencyServices: location.density > 0.7 ? "Required" : "Standby",
+        },
+      }));
+
+      setHeatmapData(processedData);
     } catch (error) {
       console.error("Failed to load heatmap data:", error);
+      // Set fallback data for demonstration
+      setHeatmapData([
+        {
+          name: "Gulmarg",
+          density: 0.92,
+          expectedVisitors: 32500,
+          resourceName: "Gulmarg-2024-12",
+          riskLevel: "Critical",
+          resourceNeeds: {
+            staff: 650,
+            vehicles: 33,
+            emergencyServices: "Required",
+          },
+        },
+        {
+          name: "Pahalgam",
+          density: 0.85,
+          expectedVisitors: 28750,
+          resourceName: "Pahalgam-2024-12",
+          riskLevel: "Critical",
+          resourceNeeds: {
+            staff: 575,
+            vehicles: 29,
+            emergencyServices: "Required",
+          },
+        },
+        {
+          name: "Sonamarg",
+          density: 0.65,
+          expectedVisitors: 21500,
+          resourceName: "Sonamarg-2024-12",
+          riskLevel: "Warning",
+          resourceNeeds: {
+            staff: 430,
+            vehicles: 22,
+            emergencyServices: "Standby",
+          },
+        },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -27,6 +84,65 @@ const Heatmap = () => {
   useEffect(() => {
     loadHeatmapData();
   }, [loadHeatmapData]);
+
+  const handleViewDetails = (location) => {
+    // Show detailed location information
+    const details = `
+Location Details for ${location.name}
+================================
+
+Density Level: ${(location.density * 100).toFixed(1)}%
+Risk Assessment: ${location.riskLevel}
+Expected Visitors: ${location.expectedVisitors?.toLocaleString() || "N/A"}
+
+Resource Requirements:
+- Staff Needed: ${location.resourceNeeds?.staff || 0} personnel
+- Transport Required: ${location.resourceNeeds?.vehicles || 0} vehicles
+- Emergency Services: ${
+      location.resourceNeeds?.emergencyServices || "Not Required"
+    }
+
+Department Actions:
+1. Monitor visitor flow continuously
+2. Deploy additional resources if needed
+3. Prepare contingency plans
+4. Coordinate with local authorities
+    `;
+
+    alert(details);
+    console.log("Admin viewed location details:", location);
+  };
+
+  const handleResourcePlanning = (location) => {
+    // Open resource planning interface
+    const planning = `
+Resource Planning for ${location.name}
+==============================
+
+Current Status:
+- Visitor Density: ${(location.density * 100).toFixed(1)}%
+- Risk Level: ${location.riskLevel}
+- Expected Visitors: ${location.expectedVisitors?.toLocaleString() || "N/A"}
+
+Resource Allocation:
+[ ] Staff Deployed: [0/${location.resourceNeeds?.staff || 0}]
+[ ] Vehicles Assigned: [0/${location.resourceNeeds?.vehicles || 0}]
+[ ] Emergency Services: ${
+      location.resourceNeeds?.emergencyServices || "Not Required"
+    }
+
+Planning Actions:
+1. Finalize resource deployment
+2. Set up communication channels
+3. Establish monitoring checkpoints
+4. Prepare incident response teams
+
+Execute Plan [Button]
+    `;
+
+    alert(planning);
+    console.log("Admin planned resources:", location);
+  };
 
   // Generate month options
   const months = Array.from({ length: 12 }, (_, i) => ({
@@ -98,7 +214,14 @@ const Heatmap = () => {
             {heatmapData.length > 0 ? (
               heatmapData.map((location) => (
                 <div key={location.name} className="heatmap-card">
-                  <h3>{location.name}</h3>
+                  <div className="card-header">
+                    <h3>{location.name}</h3>
+                    <span
+                      className={`risk-badge ${location.riskLevel.toLowerCase()}`}
+                    >
+                      {location.riskLevel}
+                    </span>
+                  </div>
                   <div className="traffic-indicator">
                     <div
                       className={`traffic-bar ${
@@ -115,6 +238,25 @@ const Heatmap = () => {
                   </div>
                   <div className="density-value">
                     {Math.round(location.density * 100)}%
+                  </div>
+                  <div className="expected-visitors">
+                    Expected:{" "}
+                    {location.expectedVisitors?.toLocaleString() || "N/A"}{" "}
+                    visitors
+                  </div>
+                  <div className="card-actions">
+                    <button
+                      className="btn btn-small btn-secondary"
+                      onClick={() => handleViewDetails(location)}
+                    >
+                      <i className="fas fa-eye"></i> Details
+                    </button>
+                    <button
+                      className="btn btn-small"
+                      onClick={() => handleResourcePlanning(location)}
+                    >
+                      <i className="fas fa-cogs"></i> Plan
+                    </button>
                   </div>
                 </div>
               ))

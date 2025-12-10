@@ -52,6 +52,7 @@
   border-top: 1px solid #f1f5f9;
   color: #334155;
   font-size: 0.875rem;
+  vertical-align: middle;
 }
 
 .predictions-table tbody tr:hover {
@@ -76,4 +77,32 @@
 .predictions-loading i {
   font-size: 2rem;
   margin-bottom: 1rem;
+}
+
+.urgency-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.urgency-badge.high {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.urgency-badge.medium {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.urgency-badge.low {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.btn-small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  margin: 0.125rem;
 }

@@ -23,9 +23,17 @@ const Sidebar = ({ links, isOpen, toggleSidebar }) => {
                   to={link.href}
                   className={isActive ? "active" : ""}
                   onClick={() => window.innerWidth < 768 && toggleSidebar()}
+                  title={link.description}
                 >
                   <i className={link.icon}></i>
-                  <span>{link.label}</span>
+                  <div className="link-content">
+                    <span className="link-label">{link.label}</span>
+                    {link.description && (
+                      <span className="link-description">
+                        {link.description}
+                      </span>
+                    )}
+                  </div>
                 </Link>
               </li>
             );

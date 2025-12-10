@@ -1,0 +1,20 @@
+# Fixed Fallback Logic for app.py
+
+# ORIGINAL FAULTY LINE (line 137):
+weather = WEATHER_DATA[weather_key].get(month, WEATHER_DATA['Gulmarg'][6])
+
+# PROBLEM:
+# This tries to access WEATHER_DATA['Gulmarg'][6] directly, which is incorrect syntax
+# It should be WEATHER_DATA['Gulmarg'].get(6, default_value)
+
+# FIXED LINE:
+weather = WEATHER_DATA[weather_key].get(month, WEATHER_DATA['Gulmarg'].get(6, {
+    'temp_mean': 10, 'temp_max': 15, 'temp_min': 5, 'precip': 75, 
+    'snow': 10, 'precip_hours': 120, 'wind': 20, 'humidity': 65, 'sunshine': 200
+}))
+
+# EXPLANATION:
+# 1. First, try to get weather data for the specific month
+# 2. If that fails, try to get June data (month 6) from Gulmarg as a fallback
+# 3. If that also fails, use a default weather data structure
+# 4. This prevents exceptions and ensures the function always returns valid data

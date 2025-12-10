@@ -37,6 +37,9 @@
   object-fit: cover;
   object-position: center;
   z-index: 1;
+  /* Optimize for performance */
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .images-slider-controls {
@@ -91,4 +94,16 @@
 
 .images-slider-nav-button.next {
   right: 20px;
+}
+
+/* Accessibility improvements */
+.images-slider-image:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .images-slider-image {
+    transition: none;
+  }
 }

@@ -4,11 +4,18 @@ import { ImagesSlider } from "./ui/images-slider";
 import "./Hero.css";
 
 function HeroWithSlider() {
-  // Kashmir tourism images
+  // Use local Kashmir tourism images
   const images = [
-    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "/images/GULMARG.png",
+    "/images/PAHALGAM.png",
+    "/images/SONAMARG.png",
+    "/images/YOUSMARG.png",
+    "/images/DOODPATHRI.png",
+    "/images/AHARBAL.png",
+    "/images/KOKERNAG.png",
+    "/images/LOLAB.png",
+    "/images/MANASBAL.png",
+    "/images/GUREZ.png",
   ];
 
   return (

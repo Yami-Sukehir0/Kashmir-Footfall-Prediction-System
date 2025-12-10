@@ -16,9 +16,9 @@ print("Creating placeholder model...")
 model = RandomForestRegressor(n_estimators=10, random_state=42, max_depth=5)
 
 # Create some dummy training data to fit the model
-# 22 features as expected by the application
+# 17 features as used in the application (matching prepare_features function)
 # Use more realistic values for footfall prediction (log scale)
-X_dummy = np.random.rand(100, 22)  # 100 samples, 22 features
+X_dummy = np.random.rand(100, 17)  # 100 samples, 17 features
 # Scale features to more realistic ranges
 X_dummy[:, 0] = np.random.randint(1, 11, 100)  # location codes 1-10
 X_dummy[:, 1] = np.random.randint(2020, 2030, 100)  # years
@@ -26,6 +26,18 @@ X_dummy[:, 2] = np.random.randint(1, 13, 100)  # months
 X_dummy[:, 3] = np.random.randint(1, 5, 100)  # seasons
 X_dummy[:, 4] = np.random.normal(80000, 20000, 100)  # rolling average
 X_dummy[:, 4] = np.clip(X_dummy[:, 4], 10000, 200000)  # clip to reasonable range
+X_dummy[:, 5] = np.random.uniform(-10, 35, 100)  # temperature_2m_mean
+X_dummy[:, 6] = np.random.uniform(-5, 40, 100)   # temperature_2m_max
+X_dummy[:, 7] = np.random.uniform(-20, 30, 100)  # temperature_2m_min
+X_dummy[:, 8] = np.random.uniform(0, 300, 100)   # precipitation_sum
+X_dummy[:, 9] = np.random.uniform(0, 350, 100)   # sunshine_duration
+X_dummy[:, 10] = np.random.uniform(-10000, 10000, 100)  # temp_sunshine_interaction
+X_dummy[:, 11] = np.random.uniform(0, 50, 100)   # temperature_range
+X_dummy[:, 12] = np.random.uniform(-10000, 10000, 100)  # precipitation_temperature
+X_dummy[:, 13] = np.random.randint(0, 10, 100)   # holiday_count
+X_dummy[:, 14] = np.random.randint(0, 5, 100)    # long_weekend_count
+X_dummy[:, 15] = np.random.randint(0, 5, 100)    # national_holiday_count
+X_dummy[:, 16] = np.random.randint(0, 5, 100)    # festival_holiday_count
 
 # Create more realistic target values (log of footfall)
 # Most footfall values between 1000-100000 visitors
@@ -44,7 +56,7 @@ scaler.fit(X_dummy)
 print("Creating metadata...")
 metadata = {
     'model_type': 'RandomForestRegressor',
-    'num_features': 22,
+    'num_features': 17,  # Changed from 22 to 17 to match prepare_features
     'test_metrics': {
         'R2': 0.85,
         'MAE': 5000,

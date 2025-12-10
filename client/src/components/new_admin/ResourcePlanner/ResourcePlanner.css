@@ -114,6 +114,18 @@
   gap: 1.5rem;
 }
 
+@media (max-width: 768px) {
+  .requirements-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
 .requirement-card {
   background: #f8fafc;
   border-radius: 0.75rem;
@@ -133,6 +145,40 @@
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+
+.priority-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.priority-badge.critical {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.priority-badge.high {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.priority-badge.medium {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.priority-badge.normal {
+  background: #dbeafe;
+  color: #2563eb;
 }
 
 .requirement-icon {
@@ -202,6 +248,33 @@
   font-weight: 500;
   font-size: 0.875rem;
   margin-bottom: 0;
+}
+
+.department-action {
+  background: #f0f9ff;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin: 1rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #0c4a6e;
+}
+
+.department-action i {
+  margin-top: 0.125rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.btn-small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
 }
 
 .planner-placeholder {

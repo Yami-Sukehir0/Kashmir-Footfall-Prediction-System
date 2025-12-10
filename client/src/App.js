@@ -14,6 +14,7 @@ import AboutPage from './components/pages/AboutPage';
 import UnauthorizedPage from './components/pages/UnauthorizedPage';
 import Dashboard from './components/new_admin/Dashboard/Dashboard';
 import Predictions from './components/new_admin/Predictions/Predictions';
+import PredictionDetail from './components/new_admin/PredictionDetail/PredictionDetail';
 import Heatmap from './components/new_admin/Heatmap/Heatmap';
 import ResourcePlanner from './components/new_admin/ResourcePlanner/ResourcePlanner';
 import UserManagement from './components/new_admin/UserManagement/UserManagement';
@@ -71,6 +72,7 @@ function App() {
             <Route index element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="predictions" element={<Predictions />} />
+            <Route path="predictions/:id" element={<PredictionDetail />} />
             <Route path="heatmap" element={<Heatmap />} />
             <Route path="resources" element={<ResourcePlanner />} />
             <Route path="users" element={<UserManagement />} />

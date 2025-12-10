@@ -69,59 +69,177 @@ const HomePage = () => {
       setFeaturedLocations(response.data);
     } catch (err) {
       console.error("Failed to load featured locations:", err);
-      // Fallback data with accurate Kashmir destination information
+      // Fallback data with accurate Kashmir destination information and local images
       setFeaturedLocations([
         {
           id: 1,
           name: "Gulmarg",
           description:
-            "Gulmarg, meaning 'Meadow of Flowers,' is a year-round destination famous for skiing in winter and golfing in summer. Home to the world's highest golf course and Asia's highest Gondola ride, it offers breathtaking views of the Himalayas and is a UNESCO Biosphere Reserve.",
+            "Gulmarg, meaning 'Meadow of Flowers,' is a year-round destination famous for skiing in winter and golfing in summer. Home to the world's highest golf course and Asia's highest Gondola ride, it offers breathtaking views of the Himalayas and is a UNESCO Biosphere Reserve. The town is located at an altitude of 2,730 meters and receives heavy snowfall during winters, making it a prime destination for skiing enthusiasts.",
           avgFootfall: "120,000",
-          image:
-            "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          image: "/images/GULMARG.png",
           bestTime:
             "December - March (Winter Sports), May - October (Trekking)",
           attractions:
-            "Gondola Ride Phase 1 & 2, Skiing, Golf Course, Strawberry Valley",
+            "Gondola Ride Phase 1 & 2, Skiing, Golf Course, Strawberry Valley, Alpather Lake",
           predictedCrowd: "High",
           recommendedVisitDuration: "2-3 days",
           altitude: "2,730m (9,000 ft)",
           temperature: "-5°C to 15°C",
-          significance: "UNESCO Biosphere Reserve, World's Highest Golf Course",
+          significance:
+            "UNESCO Biosphere Reserve, World's Highest Golf Course, Winter Sports Hub",
         },
         {
           id: 2,
           name: "Pahalgam",
           description:
-            "Known as the 'Valley of Flowers,' Pahalgam is the gateway to the Amarnath Yatra and offers stunning landscapes of lush meadows, dense forests, and crystal-clear rivers. Famous for its trout fishing, pony rides, and as a base for trekking to Kolahoi Glacier.",
+            "Known as the 'Valley of Flowers,' Pahalgam is the gateway to the Amarnath Yatra and offers stunning landscapes of lush meadows, dense forests, and crystal-clear rivers. Famous for its trout fishing, pony rides, and as a base for trekking to Kolahoi Glacier. The town is nestled at an altitude of 2,133 meters and serves as a base for several high-altitude treks.",
           avgFootfall: "95,000",
-          image:
-            "https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          image: "/images/PAHALGAM.png",
           bestTime: "April - October",
           attractions:
-            "Betaab Valley, Baisaran, Aru Valley, Chandanwari, Sheshnag Lake",
+            "Betaab Valley, Baisaran, Aru Valley, Chandanwari, Sheshnag Lake, Kolahoi Glacier",
           predictedCrowd: "Medium-High",
           recommendedVisitDuration: "3-4 days",
           altitude: "2,133m (7,000 ft)",
           temperature: "2°C to 22°C",
-          significance: "Gateway to Amarnath Yatra, Trout Fishing Capital",
+          significance:
+            "Gateway to Amarnath Yatra, Trout Fishing Capital, Trekking Base Camp",
         },
         {
           id: 3,
           name: "Sonamarg",
           description:
-            "Translating to 'Meadow of Gold,' Sonamarg is a pristine valley surrounded by snow-clad mountains, glaciers, and alpine lakes. Known for its breathtaking views and adventure activities like trekking, fishing, and camping. Offers access to Thajiwas Glacier and Vishansar Lake.",
+            "Translating to 'Meadow of Gold,' Sonamarg is a pristine valley surrounded by snow-clad mountains, glaciers, and alpine lakes. Known for its breathtaking views and adventure activities like trekking, fishing, and camping. Offers access to Thajiwas Glacier and Vishansar Lake. Located at an altitude of 2,740 meters, it's known as the 'Gateway to Ladakh'.",
           avgFootfall: "75,000",
-          image:
-            "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          image: "/images/SONAMARG.png",
           bestTime: "May - September",
           attractions:
-            "Thajiwas Glacier, Vishansar Lake, Khardung La Pass, Baltal",
+            "Thajiwas Glacier, Vishansar Lake, Khardung La Pass, Baltal, Sindh River",
           predictedCrowd: "Medium",
           recommendedVisitDuration: "2-3 days",
           altitude: "2,740m (9,000 ft)",
           temperature: "1°C to 18°C",
-          significance: "Gateway to Ladakh, Base for Kashmir Great Lakes Trek",
+          significance:
+            "Gateway to Ladakh, Base for Kashmir Great Lakes Trek, Scenic Beauty Spot",
+        },
+        {
+          id: 4,
+          name: "Yousmarg",
+          description:
+            "Often referred to as the 'Meadow of Saints,' Yousmarg is a picturesque hill station located at an altitude of 2,400 meters. Known for its vast green meadows, pine forests, and stunning views of the Pir Panjal range. It's an excellent destination for skiing in winter and trekking in summer.",
+          avgFootfall: "45,000",
+          image: "/images/YOUSMARG.png",
+          bestTime:
+            "December - March (Winter Sports), April - October (Trekking)",
+          attractions:
+            "Dachigam National Park, Zero Point, Khilanmarg, Dood Ganga",
+          predictedCrowd: "Medium",
+          recommendedVisitDuration: "2-3 days",
+          altitude: "2,400m (7,874 ft)",
+          temperature: "-2°C to 16°C",
+          significance:
+            "Winter Sports Destination, Scenic Hill Station, Wildlife Spot",
+        },
+        {
+          id: 5,
+          name: "Doodpathri",
+          description:
+            "Known as the 'Milk Sea,' Doodpathri is famous for its white-colored streams that flow down the mountains, creating a milky appearance. Located at an altitude of 2,400 meters, it offers mesmerizing views of the Himalayas and is relatively untouched by commercial tourism.",
+          avgFootfall: "25,000",
+          image: "/images/DOODPATHRI.png",
+          bestTime: "May - October",
+          attractions:
+            "White Streams, Alpine Meadows, Pine Forests, Mountain Views",
+          predictedCrowd: "Low",
+          recommendedVisitDuration: "1-2 days",
+          altitude: "2,400m (7,874 ft)",
+          temperature: "3°C to 17°C",
+          significance:
+            "Unique Natural Phenomenon, Offbeat Destination, Serene Location",
+        },
+        {
+          id: 6,
+          name: "Aharbal",
+          description:
+            "Known as the 'Niagara of Kashmir,' Aharbal is famous for its spectacular waterfall that plunges from a height of 25 meters. Located at an altitude of 2,400 meters, it's surrounded by dense forests and offers a refreshing escape from city life.",
+          avgFootfall: "30,000",
+          image: "/images/AHARBAL.png",
+          bestTime: "April - November",
+          attractions:
+            "Aharbal Waterfall, Forest Walks, Picnic Spots, Nature Photography",
+          predictedCrowd: "Low-Medium",
+          recommendedVisitDuration: "1 day",
+          altitude: "2,400m (7,874 ft)",
+          temperature: "4°C to 19°C",
+          significance: "Natural Waterfall, Scenic Beauty, Family Destination",
+        },
+        {
+          id: 7,
+          name: "Kokernag",
+          description:
+            "Known for its trout breeding center, Kokernag is a serene destination located at an altitude of 1,700 meters. Famous for its trout fish and surrounded by apple orchards and pine forests, it offers a peaceful retreat for nature lovers.",
+          avgFootfall: "20,000",
+          image: "/images/KOKERNAG.png",
+          bestTime: "April - October",
+          attractions:
+            "Trout Breeding Center, Apple Orchards, Pine Forests, River Views",
+          predictedCrowd: "Low",
+          recommendedVisitDuration: "1 day",
+          altitude: "1,700m (5,577 ft)",
+          temperature: "5°C to 20°C",
+          significance:
+            "Trout Fish Breeding, Peaceful Retreat, Agricultural Spot",
+        },
+        {
+          id: 8,
+          name: "Lolab",
+          description:
+            "A beautiful valley located in the Kupwara district, Lolab is known for its saffron cultivation and stunning landscapes. Surrounded by the Himalayan peaks, it offers panoramic views and is home to traditional Kashmiri villages.",
+          avgFootfall: "15,000",
+          image: "/images/LOLAB.png",
+          bestTime: "April - October",
+          attractions:
+            "Saffron Fields, Traditional Villages, Mountain Views, Cultural Experience",
+          predictedCrowd: "Low",
+          recommendedVisitDuration: "1-2 days",
+          altitude: "1,800m (5,905 ft)",
+          temperature: "6°C to 21°C",
+          significance:
+            "Saffron Cultivation, Cultural Heritage, Offbeat Valley",
+        },
+        {
+          id: 9,
+          name: "Manasbal",
+          description:
+            "Known as the 'Gem of Kashmir,' Manasbal Lake is one of the deepest lakes in India. Surrounded by hills and famous for its lotus flowers, it offers boating facilities and stunning reflections of the surrounding mountains.",
+          avgFootfall: "35,000",
+          image: "/images/MANASBAL.png",
+          bestTime: "March - November",
+          attractions:
+            "Manasbal Lake, Boating, Lotus Flowers, Mountain Reflections",
+          predictedCrowd: "Low-Medium",
+          recommendedVisitDuration: "1 day",
+          altitude: "1,500m (4,921 ft)",
+          temperature: "7°C to 23°C",
+          significance:
+            "Deepst Lake in India, Scenic Beauty, Boating Destination",
+        },
+        {
+          id: 10,
+          name: "Gurez",
+          description:
+            "Located in the remote northernmost region of Kashmir, Gurez is known for its breathtaking landscapes and the Harmukh mountain range. Often called 'Mini Switzerland of Kashmir,' it offers pristine beauty and is relatively untouched by tourism.",
+          avgFootfall: "10,000",
+          image: "/images/GUREZ.png",
+          bestTime: "May - October",
+          attractions:
+            "Harmukh Range, Alpine Meadows, Dudhganga River, Traditional Culture",
+          predictedCrowd: "Very Low",
+          recommendedVisitDuration: "2-3 days",
+          altitude: "2,400m (7,874 ft)",
+          temperature: "2°C to 15°C",
+          significance: "Remote Beauty, Mini Switzerland, Cultural Heritage",
         },
       ]);
     }
@@ -136,6 +254,16 @@ const HomePage = () => {
       // Call the actual prediction API
       const response = await axios.post(`${API_URL}/predict`, formData);
       setPredictionResult(response.data);
+
+      // If user is admin, also send to admin predictions endpoint
+      if (isAdmin) {
+        try {
+          await axios.post(`${API_URL}/admin/prediction-create`, formData);
+        } catch (adminErr) {
+          console.warn("Failed to save admin prediction:", adminErr);
+        }
+      }
+
       // Scroll to prediction results
       setTimeout(() => {
         const element = document.querySelector(".prediction-result");
@@ -222,6 +350,60 @@ Try filling out the form below to see the actual prediction system in action!
       alert(predictionInfo);
       console.log(`Generating prediction for ${location.name}`);
     }
+  };
+
+  // Admin button handlers
+  const handleExportReport = (predictionData) => {
+    // In a real implementation, this would generate and download a detailed report
+    alert(`Exporting detailed report for ${predictionData.location} - ${predictionData.month}/${predictionData.year}...
+
+This would generate a comprehensive PDF report including:
+- Detailed visitor predictions
+- Resource allocation recommendations
+- Historical comparison data
+- Risk assessment factors
+- Implementation timeline
+
+Report would be downloaded automatically.`);
+
+    // Log the action for analytics
+    console.log("Admin exported report:", predictionData);
+  };
+
+  const handleShareWithDepartment = (predictionData) => {
+    // In a real implementation, this would send data to department systems
+    alert(`Sharing prediction data for ${
+      predictionData.location
+    } with Tourism Department...
+
+This would send the following information:
+- Location: ${predictionData.location}
+- Predicted visitors: ${predictionData.predicted_footfall?.toLocaleString()}
+- Confidence level: ${(predictionData.confidence * 100).toFixed(1)}%
+- Resource requirements
+- Implementation timeline
+
+Data sent successfully to department systems.`);
+
+    // Log the action for analytics
+    console.log("Admin shared data with department:", predictionData);
+  };
+
+  const handleConfigureAlerts = (predictionData) => {
+    // In a real implementation, this would open alert configuration modal
+    alert(`Configuring alerts for ${predictionData.location}...
+
+This would open a configuration panel to set up:
+- Capacity threshold alerts
+- Weather impact notifications
+- Staffing requirement updates
+- Emergency response triggers
+- Resource shortage warnings
+
+Configuration saved successfully.`);
+
+    // Log the action for analytics
+    console.log("Admin configured alerts:", predictionData);
   };
 
   return (
@@ -418,10 +600,190 @@ Try filling out the form below to see the actual prediction system in action!
                 </ul>
               </div>
 
-              {/* Restricted Content Section */}
-              <div className={`restricted-content ${isAdmin ? "" : "blurred"}`}>
-                <div className="restricted-header">
-                  <h4>Advanced Analytics & Resource Planning</h4>
+              {/* Detailed Planning Information for Administration */}
+              {isAdmin && (
+                <div className="admin-planning-section">
+                  <h4>Detailed Resource Planning</h4>
+                  <div className="planning-grid">
+                    <div className="planning-card">
+                      <div className="card-header">
+                        <i className="fas fa-user-friends"></i>
+                        <h5>Human Resources</h5>
+                      </div>
+                      <div className="card-content">
+                        <div className="resource-item">
+                          <span className="resource-label">
+                            Security Personnel:
+                          </span>
+                          <span className="resource-value">8-12 officers</span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">
+                            Guides & Interpreters:
+                          </span>
+                          <span className="resource-value">10-15 staff</span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">Support Staff:</span>
+                          <span className="resource-value">
+                            12-18 employees
+                          </span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">Medical Team:</span>
+                          <span className="resource-value">2-3 paramedics</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="planning-card">
+                      <div className="card-header">
+                        <i className="fas fa-bus"></i>
+                        <h5>Transportation</h5>
+                      </div>
+                      <div className="card-content">
+                        <div className="resource-item">
+                          <span className="resource-label">Buses:</span>
+                          <span className="resource-value">6-8 vehicles</span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">Vans/Shuttles:</span>
+                          <span className="resource-value">4-6 vehicles</span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">Taxis/Cabs:</span>
+                          <span className="resource-value">3-5 vehicles</span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">
+                            Emergency Vehicles:
+                          </span>
+                          <span className="resource-value">1-2 ambulances</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="planning-card">
+                      <div className="card-header">
+                        <i className="fas fa-bed"></i>
+                        <h5>Accommodation</h5>
+                      </div>
+                      <div className="card-content">
+                        <div className="resource-item">
+                          <span className="resource-label">Hotel Rooms:</span>
+                          <span className="resource-value">120-150 rooms</span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">Resort Units:</span>
+                          <span className="resource-value">30-50 units</span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">Guest Houses:</span>
+                          <span className="resource-value">20-30 units</span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">
+                            Camping Facilities:
+                          </span>
+                          <span className="resource-value">15-25 sites</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="planning-card">
+                      <div className="card-header">
+                        <i className="fas fa-utensils"></i>
+                        <h5>Catering & Food Services</h5>
+                      </div>
+                      <div className="card-content">
+                        <div className="resource-item">
+                          <span className="resource-label">Restaurants:</span>
+                          <span className="resource-value">
+                            5-8 establishments
+                          </span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">Food Stalls:</span>
+                          <span className="resource-value">10-15 vendors</span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">
+                            Catering Teams:
+                          </span>
+                          <span className="resource-value">3-5 teams</span>
+                        </div>
+                        <div className="resource-item">
+                          <span className="resource-label">
+                            Special Dietary:
+                          </span>
+                          <span className="resource-value">
+                            Available on request
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="timeline-section">
+                    <h5>Implementation Timeline</h5>
+                    <div className="timeline">
+                      <div className="timeline-item">
+                        <div className="timeline-date">30 Days Before</div>
+                        <div className="timeline-content">
+                          <h6>Preparation Phase</h6>
+                          <p>
+                            Staff recruitment, vehicle maintenance, facility
+                            checks
+                          </p>
+                        </div>
+                      </div>
+                      <div className="timeline-item">
+                        <div className="timeline-date">15 Days Before</div>
+                        <div className="timeline-content">
+                          <h6>Setup Phase</h6>
+                          <p>
+                            Resource deployment, signage installation, safety
+                            checks
+                          </p>
+                        </div>
+                      </div>
+                      <div className="timeline-item">
+                        <div className="timeline-date">Event Period</div>
+                        <div className="timeline-content">
+                          <h6>Operation Phase</h6>
+                          <p>
+                            Full resource activation, monitoring, real-time
+                            adjustments
+                          </p>
+                        </div>
+                      </div>
+                      <div className="timeline-item">
+                        <div className="timeline-date">Post Event</div>
+                        <div className="timeline-content">
+                          <h6>Evaluation Phase</h6>
+                          <p>
+                            Performance review, feedback collection, improvement
+                            planning
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Enhanced Content Section */}
+              <div
+                className={`enhanced-content ${
+                  isAdmin ? "admin-view" : "public-view"
+                }`}
+              >
+                <div className="enhanced-header">
+                  <h4>
+                    {isAdmin
+                      ? "Advanced Analytics & Resource Planning"
+                      : "Resource Planning Preview"}
+                  </h4>
                   {!isAdmin && (
                     <p className="access-message">
                       <i className="fas fa-lock"></i> Sign in as admin to access
@@ -430,38 +792,127 @@ Try filling out the form below to see the actual prediction system in action!
                   )}
                 </div>
 
-                {isAdmin ? (
-                  <div className="admin-content">
-                    <div className="analytics-preview">
-                      <h5>Detailed Analytics</h5>
-                      <div className="chart-placeholder">
-                        <i className="fas fa-chart-line"></i>
-                        <p>Interactive visitor trend visualization</p>
-                      </div>
+                <div className="enhanced-content-wrapper">
+                  <div className="analytics-preview">
+                    <h5>
+                      {isAdmin ? "Detailed Analytics" : "Analytics Preview"}
+                    </h5>
+                    <div className="chart-placeholder">
+                      <i className="fas fa-chart-line"></i>
+                      <p>
+                        {isAdmin
+                          ? "Interactive visitor trend visualization"
+                          : "Preview of visitor trend data"}
+                      </p>
+                      {isAdmin && (
+                        <p className="subtitle">
+                          Real-time data for{" "}
+                          {predictionResult.prediction.location} in{" "}
+                          {predictionResult.prediction.month}/
+                          {predictionResult.prediction.year}
+                        </p>
+                      )}
                     </div>
+                  </div>
 
-                    <div className="resource-planner-preview">
-                      <h5>Resource Requirements</h5>
-                      <div className="requirements-grid">
-                        <div className="requirement-card">
-                          <i className="fas fa-user-friends"></i>
-                          <h6>Staff</h6>
-                          <p>25-30 personnel</p>
-                        </div>
-                        <div className="requirement-card">
-                          <i className="fas fa-bus"></i>
-                          <h6>Transport</h6>
-                          <p>8-12 vehicles</p>
-                        </div>
-                        <div className="requirement-card">
-                          <i className="fas fa-bed"></i>
-                          <h6>Accommodation</h6>
-                          <p>150-200 rooms</p>
-                        </div>
+                  <div className="resource-planner-preview">
+                    <h5>
+                      {isAdmin
+                        ? "Resource Requirements"
+                        : "Resource Planning Preview"}
+                    </h5>
+                    <div className="requirements-grid">
+                      <div className="requirement-card">
+                        <i className="fas fa-user-friends"></i>
+                        <h6>Staff</h6>
+                        <p>{isAdmin ? "30-35 personnel" : "25-30 personnel"}</p>
+                        {isAdmin && (
+                          <p className="detail">
+                            Guides: 10 | Security: 8 | Support: 12
+                          </p>
+                        )}
+                      </div>
+                      <div className="requirement-card">
+                        <i className="fas fa-bus"></i>
+                        <h6>Transport</h6>
+                        <p>{isAdmin ? "10-15 vehicles" : "8-12 vehicles"}</p>
+                        {isAdmin && (
+                          <p className="detail">
+                            Buses: 6 | Vans: 4 | Taxis: 3
+                          </p>
+                        )}
+                      </div>
+                      <div className="requirement-card">
+                        <i className="fas fa-bed"></i>
+                        <h6>Accommodation</h6>
+                        <p>{isAdmin ? "180-220 rooms" : "150-200 rooms"}</p>
+                        {isAdmin && (
+                          <p className="detail">Hotels: 4 | Resorts: 2</p>
+                        )}
                       </div>
                     </div>
                   </div>
-                ) : (
+
+                  {isAdmin && (
+                    <div className="admin-enhanced-features">
+                      <h5>Department Management Tools</h5>
+                      <div className="features-grid">
+                        <div className="feature-item">
+                          <i className="fas fa-map-marked-alt"></i>
+                          <h6>Interactive Maps</h6>
+                          <p>Live visitor distribution mapping</p>
+                        </div>
+                        <div className="feature-item">
+                          <i className="fas fa-file-export"></i>
+                          <h6>Report Generation</h6>
+                          <p>Automated PDF/Excel reports</p>
+                        </div>
+                        <div className="feature-item">
+                          <i className="fas fa-bell"></i>
+                          <h6>Alerts System</h6>
+                          <p>Real-time capacity notifications</p>
+                        </div>
+                        <div className="feature-item">
+                          <i className="fas fa-sync-alt"></i>
+                          <h6>Synchronization</h6>
+                          <p>Department data integration</p>
+                        </div>
+                      </div>
+
+                      <div className="action-buttons">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() =>
+                            handleExportReport(predictionResult.prediction)
+                          }
+                        >
+                          <i className="fas fa-download"></i> Export Report
+                        </button>
+                        <button
+                          className="btn btn-secondary"
+                          onClick={() =>
+                            handleShareWithDepartment(
+                              predictionResult.prediction
+                            )
+                          }
+                        >
+                          <i className="fas fa-share-alt"></i> Share with
+                          Department
+                        </button>
+                        <button
+                          className="btn btn-accent"
+                          onClick={() =>
+                            handleConfigureAlerts(predictionResult.prediction)
+                          }
+                        >
+                          <i className="fas fa-cog"></i> Configure Alerts
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {!isAdmin && (
                   <div className="restricted-overlay">
                     <div className="blur-effect"></div>
                     <div className="overlay-content">
@@ -501,11 +952,9 @@ Try filling out the form below to see the actual prediction system in action!
               >
                 <div className="location-image">
                   <img
-                    src={
-                      location.image ||
-                      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop"
-                    }
+                    src={location.image}
                     alt={location.name}
+                    loading="lazy"
                   />
                   <div className="location-badge">#{index + 1} Trending</div>
                 </div>

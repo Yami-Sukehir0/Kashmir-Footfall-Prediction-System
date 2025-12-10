@@ -1,0 +1,6 @@
+@echo off
+echo Fixing scaler to expect 17 features...
+python fix_scaler.py
+echo.
+echo Press any key to exit...
+pause >nul

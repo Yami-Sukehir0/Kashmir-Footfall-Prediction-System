@@ -63,8 +63,14 @@
 
 .log-header {
   display: flex;
-  gap: 0.75rem;
+  justify-content: space-between;
   margin-bottom: 0.5rem;
+}
+
+.log-meta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
 
 .log-user {
@@ -72,7 +78,7 @@
   color: #1e293b;
 }
 
-.log-action {
+.log-category {
   background: #dbeafe;
   color: #3b82f6;
   padding: 0.125rem 0.5rem;
@@ -81,15 +87,70 @@
   font-weight: 500;
 }
 
+.log-priority {
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.log-priority.urgent {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.log-priority.high {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.log-priority.medium {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.log-priority.low {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
 .log-details {
   color: #64748b;
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
 }
 
+.log-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .log-timestamp {
   color: #94a3b8;
   font-size: 0.75rem;
+}
+
+.log-impact {
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.log-impact.high {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.log-impact.medium {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.log-impact.low {
+  background: #ecfdf5;
+  color: #059669;
 }
 
 .logs-loading {
@@ -104,4 +165,23 @@
 .logs-loading i {
   font-size: 2rem;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .log-header {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .log-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .log-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
 }

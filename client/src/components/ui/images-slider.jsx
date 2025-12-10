@@ -133,6 +133,8 @@ export const ImagesSlider = ({
             exit={direction === "up" ? "upExit" : "downExit"}
             variants={slideVariants}
             className="images-slider-image"
+            alt="Kashmir Tourism Destination"
+            loading="eager"
           />
         </AnimatePresence>
       )}

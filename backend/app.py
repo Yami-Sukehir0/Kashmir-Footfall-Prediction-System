@@ -94,6 +94,126 @@ WEATHER_DATA = {
         10: {'temp_mean': 14, 'temp_max': 19, 'temp_min': 9, 'precip': 70, 'snow': 5, 'precip_hours': 110, 'wind': 19, 'humidity': 58, 'sunshine': 220},
         11: {'temp_mean': 8, 'temp_max': 13, 'temp_min': 3, 'precip': 90, 'snow': 20, 'precip_hours': 140, 'wind': 22, 'humidity': 64, 'sunshine': 170},
         12: {'temp_mean': 3, 'temp_max': 8, 'temp_min': -2, 'precip': 115, 'snow': 35, 'precip_hours': 165, 'wind': 24, 'humidity': 69, 'sunshine': 145},
+    },
+    # Aharbal (waterfall destination - moderate climate)
+    'Aharbal': {
+        1: {'temp_mean': 3, 'temp_max': 8, 'temp_min': -2, 'precip': 100, 'snow': 20, 'precip_hours': 150, 'wind': 18, 'humidity': 68, 'sunshine': 160},
+        2: {'temp_mean': 5, 'temp_max': 10, 'temp_min': 0, 'precip': 90, 'snow': 15, 'precip_hours': 140, 'wind': 16, 'humidity': 66, 'sunshine': 180},
+        3: {'temp_mean': 10, 'temp_max': 15, 'temp_min': 5, 'precip': 80, 'snow': 5, 'precip_hours': 120, 'wind': 14, 'humidity': 62, 'sunshine': 210},
+        4: {'temp_mean': 15, 'temp_max': 20, 'temp_min': 10, 'precip': 70, 'snow': 0, 'precip_hours': 100, 'wind': 12, 'humidity': 58, 'sunshine': 240},
+        5: {'temp_mean': 20, 'temp_max': 25, 'temp_min': 15, 'precip': 60, 'snow': 0, 'precip_hours': 90, 'wind': 10, 'humidity': 55, 'sunshine': 270},
+        6: {'temp_mean': 24, 'temp_max': 29, 'temp_min': 19, 'precip': 50, 'snow': 0, 'precip_hours': 80, 'wind': 9, 'humidity': 52, 'sunshine': 290},
+        7: {'temp_mean': 26, 'temp_max': 31, 'temp_min': 21, 'precip': 45, 'snow': 0, 'precip_hours': 70, 'wind': 8, 'humidity': 50, 'sunshine': 310},
+        8: {'temp_mean': 25, 'temp_max': 30, 'temp_min': 20, 'precip': 50, 'snow': 0, 'precip_hours': 75, 'wind': 9, 'humidity': 51, 'sunshine': 300},
+        9: {'temp_mean': 21, 'temp_max': 26, 'temp_min': 16, 'precip': 60, 'snow': 0, 'precip_hours': 85, 'wind': 11, 'humidity': 54, 'sunshine': 260},
+        10: {'temp_mean': 15, 'temp_max': 20, 'temp_min': 10, 'precip': 75, 'snow': 0, 'precip_hours': 110, 'wind': 13, 'humidity': 59, 'sunshine': 220},
+        11: {'temp_mean': 9, 'temp_max': 14, 'temp_min': 4, 'precip': 90, 'snow': 10, 'precip_hours': 135, 'wind': 15, 'humidity': 65, 'sunshine': 180},
+        12: {'temp_mean': 4, 'temp_max': 9, 'temp_min': -1, 'precip': 110, 'snow': 25, 'precip_hours': 160, 'wind': 17, 'humidity': 70, 'sunshine': 150},
+    },
+    # Doodpathri (nearby attraction - cool climate)
+    'Doodpathri': {
+        1: {'temp_mean': 1, 'temp_max': 6, 'temp_min': -4, 'precip': 110, 'snow': 30, 'precip_hours': 160, 'wind': 22, 'humidity': 72, 'sunshine': 130},
+        2: {'temp_mean': 3, 'temp_max': 8, 'temp_min': -2, 'precip': 100, 'snow': 25, 'precip_hours': 150, 'wind': 20, 'humidity': 70, 'sunshine': 150},
+        3: {'temp_mean': 8, 'temp_max': 13, 'temp_min': 3, 'precip': 85, 'snow': 10, 'precip_hours': 130, 'wind': 18, 'humidity': 67, 'sunshine': 180},
+        4: {'temp_mean': 13, 'temp_max': 18, 'temp_min': 8, 'precip': 70, 'snow': 2, 'precip_hours': 110, 'wind': 16, 'humidity': 63, 'sunshine': 210},
+        5: {'temp_mean': 18, 'temp_max': 23, 'temp_min': 13, 'precip': 60, 'snow': 0, 'precip_hours': 95, 'wind': 14, 'humidity': 59, 'sunshine': 250},
+        6: {'temp_mean': 22, 'temp_max': 27, 'temp_min': 17, 'precip': 50, 'snow': 0, 'precip_hours': 85, 'wind': 12, 'humidity': 56, 'sunshine': 280},
+        7: {'temp_mean': 24, 'temp_max': 29, 'temp_min': 19, 'precip': 45, 'snow': 0, 'precip_hours': 75, 'wind': 11, 'humidity': 53, 'sunshine': 300},
+        8: {'temp_mean': 23, 'temp_max': 28, 'temp_min': 18, 'precip': 50, 'snow': 0, 'precip_hours': 80, 'wind': 12, 'humidity': 54, 'sunshine': 290},
+        9: {'temp_mean': 19, 'temp_max': 24, 'temp_min': 14, 'precip': 60, 'snow': 0, 'precip_hours': 90, 'wind': 14, 'humidity': 57, 'sunshine': 250},
+        10: {'temp_mean': 13, 'temp_max': 18, 'temp_min': 8, 'precip': 75, 'snow': 5, 'precip_hours': 115, 'wind': 16, 'humidity': 61, 'sunshine': 210},
+        11: {'temp_mean': 7, 'temp_max': 12, 'temp_min': 2, 'precip': 95, 'snow': 15, 'precip_hours': 145, 'wind': 19, 'humidity': 66, 'sunshine': 170},
+        12: {'temp_mean': 2, 'temp_max': 7, 'temp_min': -3, 'precip': 115, 'snow': 35, 'precip_hours': 170, 'wind': 21, 'humidity': 71, 'sunshine': 140},
+    },
+    # Gurez (remote valley - cold climate)
+    'Gurez': {
+        1: {'temp_mean': -3, 'temp_max': 2, 'temp_min': -8, 'precip': 130, 'snow': 90, 'precip_hours': 210, 'wind': 38, 'humidity': 78, 'sunshine': 110},
+        2: {'temp_mean': -1, 'temp_max': 4, 'temp_min': -6, 'precip': 120, 'snow': 80, 'precip_hours': 190, 'wind': 36, 'humidity': 76, 'sunshine': 130},
+        3: {'temp_mean': 4, 'temp_max': 9, 'temp_min': -1, 'precip': 100, 'snow': 40, 'precip_hours': 170, 'wind': 32, 'humidity': 72, 'sunshine': 160},
+        4: {'temp_mean': 9, 'temp_max': 14, 'temp_min': 4, 'precip': 80, 'snow': 15, 'precip_hours': 150, 'wind': 28, 'humidity': 68, 'sunshine': 190},
+        5: {'temp_mean': 14, 'temp_max': 19, 'temp_min': 9, 'precip': 65, 'snow': 3, 'precip_hours': 130, 'wind': 24, 'humidity': 64, 'sunshine': 230},
+        6: {'temp_mean': 18, 'temp_max': 23, 'temp_min': 13, 'precip': 50, 'snow': 0, 'precip_hours': 110, 'wind': 20, 'humidity': 60, 'sunshine': 270},
+        7: {'temp_mean': 20, 'temp_max': 25, 'temp_min': 15, 'precip': 40, 'snow': 0, 'precip_hours': 100, 'wind': 18, 'humidity': 57, 'sunshine': 290},
+        8: {'temp_mean': 19, 'temp_max': 24, 'temp_min': 14, 'precip': 45, 'snow': 0, 'precip_hours': 105, 'wind': 19, 'humidity': 58, 'sunshine': 280},
+        9: {'temp_mean': 15, 'temp_max': 20, 'temp_min': 10, 'precip': 60, 'snow': 2, 'precip_hours': 120, 'wind': 22, 'humidity': 62, 'sunshine': 240},
+        10: {'temp_mean': 9, 'temp_max': 14, 'temp_min': 4, 'precip': 85, 'snow': 20, 'precip_hours': 145, 'wind': 26, 'humidity': 67, 'sunshine': 190},
+        11: {'temp_mean': 3, 'temp_max': 8, 'temp_min': -2, 'precip': 110, 'snow': 50, 'precip_hours': 175, 'wind': 31, 'humidity': 73, 'sunshine': 150},
+        12: {'temp_mean': -2, 'temp_max': 3, 'temp_min': -7, 'precip': 140, 'snow': 85, 'precip_hours': 200, 'wind': 35, 'humidity': 77, 'sunshine': 120},
+    },
+    # Kokernag (lesser known - moderate climate)
+    'Kokernag': {
+        1: {'temp_mean': 0, 'temp_max': 5, 'temp_min': -5, 'precip': 120, 'snow': 50, 'precip_hours': 180, 'wind': 28, 'humidity': 74, 'sunshine': 125},
+        2: {'temp_mean': 2, 'temp_max': 7, 'temp_min': -3, 'precip': 110, 'snow': 40, 'precip_hours': 170, 'wind': 26, 'humidity': 72, 'sunshine': 145},
+        3: {'temp_mean': 7, 'temp_max': 12, 'temp_min': 2, 'precip': 90, 'snow': 20, 'precip_hours': 150, 'wind': 23, 'humidity': 69, 'sunshine': 175},
+        4: {'temp_mean': 12, 'temp_max': 17, 'temp_min': 7, 'precip': 75, 'snow': 5, 'precip_hours': 130, 'wind': 20, 'humidity': 65, 'sunshine': 205},
+        5: {'temp_mean': 17, 'temp_max': 22, 'temp_min': 12, 'precip': 60, 'snow': 0, 'precip_hours': 110, 'wind': 17, 'humidity': 61, 'sunshine': 245},
+        6: {'temp_mean': 21, 'temp_max': 26, 'temp_min': 16, 'precip': 50, 'snow': 0, 'precip_hours': 95, 'wind': 15, 'humidity': 58, 'sunshine': 285},
+        7: {'temp_mean': 23, 'temp_max': 28, 'temp_min': 18, 'precip': 45, 'snow': 0, 'precip_hours': 85, 'wind': 13, 'humidity': 55, 'sunshine': 305},
+        8: {'temp_mean': 22, 'temp_max': 27, 'temp_min': 17, 'precip': 50, 'snow': 0, 'precip_hours': 90, 'wind': 14, 'humidity': 56, 'sunshine': 295},
+        9: {'temp_mean': 18, 'temp_max': 23, 'temp_min': 13, 'precip': 65, 'snow': 0, 'precip_hours': 105, 'wind': 16, 'humidity': 59, 'sunshine': 255},
+        10: {'temp_mean': 12, 'temp_max': 17, 'temp_min': 7, 'precip': 80, 'snow': 10, 'precip_hours': 130, 'wind': 19, 'humidity': 64, 'sunshine': 205},
+        11: {'temp_mean': 6, 'temp_max': 11, 'temp_min': 1, 'precip': 100, 'snow': 30, 'precip_hours': 160, 'wind': 24, 'humidity': 70, 'sunshine': 165},
+        12: {'temp_mean': 1, 'temp_max': 6, 'temp_min': -4, 'precip': 125, 'snow': 55, 'precip_hours': 185, 'wind': 27, 'humidity': 73, 'sunshine': 135},
+    },
+    # Lolab (remote valley - cool climate)
+    'Lolab': {
+        1: {'temp_mean': -1, 'temp_max': 4, 'temp_min': -6, 'precip': 115, 'snow': 60, 'precip_hours': 185, 'wind': 30, 'humidity': 76, 'sunshine': 115},
+        2: {'temp_mean': 1, 'temp_max': 6, 'temp_min': -4, 'precip': 105, 'snow': 50, 'precip_hours': 175, 'wind': 28, 'humidity': 74, 'sunshine': 135},
+        3: {'temp_mean': 6, 'temp_max': 11, 'temp_min': 1, 'precip': 85, 'snow': 25, 'precip_hours': 155, 'wind': 25, 'humidity': 70, 'sunshine': 165},
+        4: {'temp_mean': 11, 'temp_max': 16, 'temp_min': 6, 'precip': 70, 'snow': 8, 'precip_hours': 135, 'wind': 22, 'humidity': 66, 'sunshine': 195},
+        5: {'temp_mean': 16, 'temp_max': 21, 'temp_min': 11, 'precip': 55, 'snow': 1, 'precip_hours': 115, 'wind': 19, 'humidity': 62, 'sunshine': 235},
+        6: {'temp_mean': 20, 'temp_max': 25, 'temp_min': 15, 'precip': 45, 'snow': 0, 'precip_hours': 100, 'wind': 16, 'humidity': 59, 'sunshine': 275},
+        7: {'temp_mean': 22, 'temp_max': 27, 'temp_min': 17, 'precip': 40, 'snow': 0, 'precip_hours': 90, 'wind': 14, 'humidity': 56, 'sunshine': 295},
+        8: {'temp_mean': 21, 'temp_max': 26, 'temp_min': 16, 'precip': 45, 'snow': 0, 'precip_hours': 95, 'wind': 15, 'humidity': 57, 'sunshine': 285},
+        9: {'temp_mean': 17, 'temp_max': 22, 'temp_min': 12, 'precip': 60, 'snow': 3, 'precip_hours': 110, 'wind': 18, 'humidity': 61, 'sunshine': 245},
+        10: {'temp_mean': 11, 'temp_max': 16, 'temp_min': 6, 'precip': 75, 'snow': 15, 'precip_hours': 135, 'wind': 21, 'humidity': 65, 'sunshine': 195},
+        11: {'temp_mean': 5, 'temp_max': 10, 'temp_min': 0, 'precip': 95, 'snow': 35, 'precip_hours': 165, 'wind': 26, 'humidity': 71, 'sunshine': 155},
+        12: {'temp_mean': 0, 'temp_max': 5, 'temp_min': -5, 'precip': 120, 'snow': 65, 'precip_hours': 190, 'wind': 29, 'humidity': 75, 'sunshine': 125},
+    },
+    # Manasbal (beautiful lake - moderate climate)
+    'Manasbal': {
+        1: {'temp_mean': 2, 'temp_max': 7, 'temp_min': -3, 'precip': 110, 'snow': 35, 'precip_hours': 165, 'wind': 24, 'humidity': 71, 'sunshine': 135},
+        2: {'temp_mean': 4, 'temp_max': 9, 'temp_min': -1, 'precip': 100, 'snow': 25, 'precip_hours': 155, 'wind': 22, 'humidity': 69, 'sunshine': 155},
+        3: {'temp_mean': 9, 'temp_max': 14, 'temp_min': 4, 'precip': 85, 'snow': 12, 'precip_hours': 135, 'wind': 20, 'humidity': 66, 'sunshine': 185},
+        4: {'temp_mean': 14, 'temp_max': 19, 'temp_min': 9, 'precip': 70, 'snow': 3, 'precip_hours': 115, 'wind': 18, 'humidity': 62, 'sunshine': 215},
+        5: {'temp_mean': 19, 'temp_max': 24, 'temp_min': 14, 'precip': 55, 'snow': 0, 'precip_hours': 100, 'wind': 16, 'humidity': 58, 'sunshine': 255},
+        6: {'temp_mean': 23, 'temp_max': 28, 'temp_min': 18, 'precip': 45, 'snow': 0, 'precip_hours': 85, 'wind': 14, 'humidity': 55, 'sunshine': 295},
+        7: {'temp_mean': 25, 'temp_max': 30, 'temp_min': 20, 'precip': 40, 'snow': 0, 'precip_hours': 75, 'wind': 12, 'humidity': 52, 'sunshine': 315},
+        8: {'temp_mean': 24, 'temp_max': 29, 'temp_min': 19, 'precip': 45, 'snow': 0, 'precip_hours': 80, 'wind': 13, 'humidity': 53, 'sunshine': 305},
+        9: {'temp_mean': 20, 'temp_max': 25, 'temp_min': 15, 'precip': 55, 'snow': 0, 'precip_hours': 95, 'wind': 15, 'humidity': 56, 'sunshine': 265},
+        10: {'temp_mean': 14, 'temp_max': 19, 'temp_min': 9, 'precip': 70, 'snow': 8, 'precip_hours': 120, 'wind': 17, 'humidity': 60, 'sunshine': 215},
+        11: {'temp_mean': 8, 'temp_max': 13, 'temp_min': 3, 'precip': 90, 'snow': 22, 'precip_hours': 150, 'wind': 20, 'humidity': 65, 'sunshine': 175},
+        12: {'temp_mean': 3, 'temp_max': 8, 'temp_min': -2, 'precip': 115, 'snow': 40, 'precip_hours': 175, 'wind': 23, 'humidity': 70, 'sunshine': 145},
+    },
+    # Sonamarg (beautiful valley - moderate climate)
+    'Sonamarg': {
+        1: {'temp_mean': 1, 'temp_max': 6, 'temp_min': -4, 'precip': 115, 'snow': 45, 'precip_hours': 175, 'wind': 26, 'humidity': 73, 'sunshine': 125},
+        2: {'temp_mean': 3, 'temp_max': 8, 'temp_min': -2, 'precip': 105, 'snow': 35, 'precip_hours': 165, 'wind': 24, 'humidity': 71, 'sunshine': 145},
+        3: {'temp_mean': 8, 'temp_max': 13, 'temp_min': 3, 'precip': 90, 'snow': 20, 'precip_hours': 145, 'wind': 21, 'humidity': 68, 'sunshine': 175},
+        4: {'temp_mean': 13, 'temp_max': 18, 'temp_min': 8, 'precip': 75, 'snow': 5, 'precip_hours': 125, 'wind': 19, 'humidity': 64, 'sunshine': 205},
+        5: {'temp_mean': 18, 'temp_max': 23, 'temp_min': 13, 'precip': 60, 'snow': 0, 'precip_hours': 110, 'wind': 16, 'humidity': 60, 'sunshine': 245},
+        6: {'temp_mean': 22, 'temp_max': 27, 'temp_min': 17, 'precip': 50, 'snow': 0, 'precip_hours': 95, 'wind': 14, 'humidity': 57, 'sunshine': 285},
+        7: {'temp_mean': 24, 'temp_max': 29, 'temp_min': 19, 'precip': 45, 'snow': 0, 'precip_hours': 85, 'wind': 12, 'humidity': 54, 'sunshine': 305},
+        8: {'temp_mean': 23, 'temp_max': 28, 'temp_min': 18, 'precip': 50, 'snow': 0, 'precip_hours': 90, 'wind': 13, 'humidity': 55, 'sunshine': 295},
+        9: {'temp_mean': 19, 'temp_max': 24, 'temp_min': 14, 'precip': 60, 'snow': 0, 'precip_hours': 105, 'wind': 15, 'humidity': 58, 'sunshine': 255},
+        10: {'temp_mean': 13, 'temp_max': 18, 'temp_min': 8, 'precip': 75, 'snow': 10, 'precip_hours': 130, 'wind': 18, 'humidity': 63, 'sunshine': 205},
+        11: {'temp_mean': 7, 'temp_max': 12, 'temp_min': 2, 'precip': 95, 'snow': 25, 'precip_hours': 160, 'wind': 22, 'humidity': 69, 'sunshine': 165},
+        12: {'temp_mean': 2, 'temp_max': 7, 'temp_min': -3, 'precip': 120, 'snow': 50, 'precip_hours': 185, 'wind': 25, 'humidity': 72, 'sunshine': 135},
+    },
+    # Yousmarg (emerging destination - cool climate)
+    'Yousmarg': {
+        1: {'temp_mean': 0, 'temp_max': 5, 'temp_min': -5, 'precip': 125, 'snow': 55, 'precip_hours': 195, 'wind': 32, 'humidity': 75, 'sunshine': 115},
+        2: {'temp_mean': 2, 'temp_max': 7, 'temp_min': -3, 'precip': 115, 'snow': 45, 'precip_hours': 185, 'wind': 30, 'humidity': 73, 'sunshine': 135},
+        3: {'temp_mean': 7, 'temp_max': 12, 'temp_min': 2, 'precip': 95, 'snow': 30, 'precip_hours': 165, 'wind': 27, 'humidity': 70, 'sunshine': 165},
+        4: {'temp_mean': 12, 'temp_max': 17, 'temp_min': 7, 'precip': 80, 'snow': 10, 'precip_hours': 145, 'wind': 24, 'humidity': 66, 'sunshine': 195},
+        5: {'temp_mean': 17, 'temp_max': 22, 'temp_min': 12, 'precip': 65, 'snow': 2, 'precip_hours': 125, 'wind': 21, 'humidity': 62, 'sunshine': 235},
+        6: {'temp_mean': 21, 'temp_max': 26, 'temp_min': 16, 'precip': 55, 'snow': 0, 'precip_hours': 110, 'wind': 18, 'humidity': 59, 'sunshine': 275},
+        7: {'temp_mean': 23, 'temp_max': 28, 'temp_min': 18, 'precip': 50, 'snow': 0, 'precip_hours': 100, 'wind': 16, 'humidity': 56, 'sunshine': 295},
+        8: {'temp_mean': 22, 'temp_max': 27, 'temp_min': 17, 'precip': 55, 'snow': 0, 'precip_hours': 105, 'wind': 17, 'humidity': 57, 'sunshine': 285},
+        9: {'temp_mean': 18, 'temp_max': 23, 'temp_min': 13, 'precip': 65, 'snow': 5, 'precip_hours': 120, 'wind': 20, 'humidity': 61, 'sunshine': 245},
+        10: {'temp_mean': 12, 'temp_max': 17, 'temp_min': 7, 'precip': 80, 'snow': 15, 'precip_hours': 145, 'wind': 23, 'humidity': 65, 'sunshine': 195},
+        11: {'temp_mean': 6, 'temp_max': 11, 'temp_min': 1, 'precip': 100, 'snow': 35, 'precip_hours': 175, 'wind': 28, 'humidity': 71, 'sunshine': 155},
+        12: {'temp_mean': 1, 'temp_max': 6, 'temp_min': -4, 'precip': 130, 'snow': 60, 'precip_hours': 200, 'wind': 31, 'humidity': 74, 'sunshine': 125},
     }
 }
 
@@ -134,7 +254,12 @@ def prepare_features(location, year, month, rolling_avg=80000):
 
     # Get weather data (with fallback to Gulmarg if location not in WEATHER_DATA)
     weather_key = location if location in WEATHER_DATA else 'Gulmarg'
-    weather = WEATHER_DATA[weather_key].get(month, WEATHER_DATA['Gulmarg'][6])
+    # Fixed fallback logic to prevent exceptions
+    default_weather = {
+        'temp_mean': 10, 'temp_max': 15, 'temp_min': 5, 'precip': 75, 
+        'snow': 10, 'precip_hours': 120, 'wind': 20, 'humidity': 65, 'sunshine': 200
+    }
+    weather = WEATHER_DATA[weather_key].get(month, WEATHER_DATA['Gulmarg'].get(6, default_weather))
 
     # Get holiday data
     holidays = HOLIDAY_DATA.get(month, HOLIDAY_DATA[6])
@@ -212,336 +337,499 @@ def predict():
         if not (1 <= month <= 12):
             return jsonify({'error': 'Month must be between 1 and 12'}), 400
 
-        # Enhanced prediction logic with realistic trends and insights
-        import random
-        import math
-        
-        # Base visitors by location (popular locations get more visitors)
-        location_base = {
-            'Gulmarg': 18000,      # Popular ski resort
-            'Pahalgam': 32000,     # Popular valley destination
-            'Sonamarg': 15000,     # Beautiful valley
-            'Yousmarg': 10000,     # Emerging destination
-            'Doodpathri': 7000,    # Nearby attraction
-            'Kokernag': 5500,      # Lesser known
-            'Lolab': 4500,         # Remote valley
-            'Manasbal': 12000,     # Beautiful lake
-            'Aharbal': 3500,       # Waterfall destination
-            'Gurez': 2500          # Very remote
-        }
-        
-        # Use rolling average as baseline if provided and reasonable
-        # This allows the system to adapt to recent trends
-        if rolling_avg and 1000 <= rolling_avg <= 100000:
-            base_visitors = rolling_avg * 0.4  # Use 40% of rolling average as baseline
-        else:
-            base_visitors = location_base.get(location, 12000)
-        
-        # Historical growth trend (Kashmir tourism has been growing)
-        growth_factor = 1.0 + (year - 2020) * 0.08  # 8% annual growth
-        
-        # Adjust growth factor based on recent trends
-        # If rolling average is significantly higher than location baseline, 
-        # it indicates positive momentum
-        location_baseline = location_base.get(location, 12000)
-        if rolling_avg and rolling_avg > location_baseline * 1.2:
-            # Positive momentum - slightly boost growth factor
-            growth_factor *= 1.05
-        elif rolling_avg and rolling_avg < location_baseline * 0.8:
-            # Negative momentum - slightly reduce growth factor
-            growth_factor *= 0.95
-        
-        # Seasonal patterns based on Kashmir tourism data
-        seasonal_patterns = {
-            'Gulmarg': {
-                12: {'multiplier': 1.4, 'trend': 'peak'},    # Winter ski season
-                1: {'multiplier': 1.3, 'trend': 'peak'},
-                2: {'multiplier': 1.2, 'trend': 'high'},
-                3: {'multiplier': 0.7, 'trend': 'low'},
-                6: {'multiplier': 0.5, 'trend': 'off'},
-                7: {'multiplier': 0.4, 'trend': 'off'},
-                8: {'multiplier': 0.5, 'trend': 'off'}
-            },
-            'Pahalgam': {
-                5: {'multiplier': 1.1, 'trend': 'rising'},
-                6: {'multiplier': 1.5, 'trend': 'peak'},
-                7: {'multiplier': 1.4, 'trend': 'peak'},
-                8: {'multiplier': 1.3, 'trend': 'high'},
-                9: {'multiplier': 1.1, 'trend': 'declining'},
-                10: {'multiplier': 0.8, 'trend': 'moderate'},
-                11: {'multiplier': 0.6, 'trend': 'low'},
-                12: {'multiplier': 0.5, 'trend': 'off'},
-                1: {'multiplier': 0.4, 'trend': 'off'}
-            },
-            'Sonamarg': {
-                5: {'multiplier': 1.0, 'trend': 'rising'},
-                6: {'multiplier': 1.3, 'trend': 'high'},
-                7: {'multiplier': 1.2, 'trend': 'high'},
-                8: {'multiplier': 1.1, 'trend': 'moderate'},
-                9: {'multiplier': 0.9, 'trend': 'moderate'},
-                10: {'multiplier': 0.7, 'trend': 'low'}
+        # Use the actual trained ML model for prediction if available
+        if model is not None and scaler is not None:
+            # Prepare features for model prediction
+            features = prepare_features(location, year, month, rolling_avg)
+            
+            # Scale features
+            scaled_features = scaler.transform(features)
+            
+            # Make prediction using the trained model
+            model_prediction = model.predict(scaled_features)[0]
+            
+            # NEW: Add validation for suspiciously similar predictions
+            # Test predictions for multiple locations to detect model issues
+            validation_predictions = {}
+            for test_location in list(LOCATION_MAPPING.keys())[:5]:  # Test first 5 locations
+                test_features = prepare_features(test_location, year, month, rolling_avg)
+                test_scaled = scaler.transform(test_features)
+                test_prediction = model.predict(test_scaled)[0]
+                validation_predictions[test_location] = test_prediction
+            
+            # Check if predictions are suspiciously similar
+            prediction_values = list(validation_predictions.values())
+            prediction_range = max(prediction_values) - min(prediction_values)
+            
+            # Log warning if predictions are too similar
+            if prediction_range < 1000:  # Less than 1000 visitor difference
+                logger.warning(f"Suspiciously similar predictions detected. Range: {prediction_range:.0f} visitors. This may indicate model quality issues.")
+            
+            # Get prediction confidence/probability if available
+            confidence = 0.85  # Default confidence
+            if hasattr(model, 'predict_proba'):
+                try:
+                    probabilities = model.predict_proba(scaled_features)
+                    confidence = float(np.max(probabilities))
+                except:
+                    pass
+            
+            # Convert to integer and ensure reasonable bounds without artificial caps
+            prediction = int(round(max(0, model_prediction)))
+            
+            # Generate insights based on model prediction
+            insights = []
+            suggestions = []
+            
+            # Location-specific insights
+            if location == "Gulmarg":
+                if month in [12, 1, 2]:  # Winter months
+                    insights.append(f"{location} is experiencing peak ski season in {month}/{year}. Expect maximum tourist inflow.")
+                    if prediction > 50000:
+                        insights.append("Strong visitor volume detected. Ensure adequate ski lift capacity.")
+                        suggestions.append("Deploy additional ski instructors and equipment rental staff.")
+                else:
+                    insights.append(f"{location} is in off-season. Lower tourist numbers expected.")
+            elif location == "Pahalgam":
+                if month in [5, 6, 7, 8]:  # Summer months
+                    insights.append(f"{location} is experiencing peak summer season in {month}/{year}. Expect high tourist activity.")
+                else:
+                    insights.append(f"{location} is in shoulder season. Moderate tourist activity expected.")
+            
+            # General insights based on prediction magnitude
+            if prediction > 60000:
+                insights.append(f"Exceptionally high visitor volume ({prediction:,} visitors) predicted.")
+                suggestions.append("Coordinate with local authorities for traffic management.")
+                suggestions.append("Ensure adequate waste management and sanitation facilities.")
+            elif prediction > 30000:
+                insights.append(f"High visitor volume ({prediction:,} visitors) predicted.")
+                suggestions.append("Maintain standard staffing levels with on-call support.")
+            elif prediction > 10000:
+                insights.append(f"Moderate visitor volume ({prediction:,} visitors) predicted.")
+                suggestions.append("Standard staffing sufficient. Monitor booking trends.")
+            else:
+                insights.append(f"Lower visitor volume ({prediction:,} visitors) predicted.")
+                suggestions.append("Opportunity for targeted promotional campaigns.")
+            
+            # Rolling average insight
+            if rolling_avg and 1000 <= rolling_avg <= 100000:
+                if rolling_avg > prediction * 1.2:
+                    insights.append(f"Recent performance ({rolling_avg:,} avg) higher than prediction. Trend may be declining.")
+                elif rolling_avg < prediction * 0.8:
+                    insights.append(f"Recent performance ({rolling_avg:,} avg) lower than prediction. Upward trend expected.")
+                else:
+                    insights.append(f"Stable recent performance ({rolling_avg:,} avg) indicates predictable trends.")
+            
+            # Resource requirements estimation
+            resource_requirements = {
+                'staff': max(5, int(prediction / 1000)),  # 1 staff per 1000 visitors
+                'vehicles': max(2, int(prediction / 2000)),  # 1 vehicle per 2000 visitors
+                'rooms': max(20, int(prediction * 0.05))  # 0.05 rooms per visitor
             }
-        }
-        
-        # Default seasonal pattern for other locations
-        default_seasonal = {
-            1: {'multiplier': 0.6, 'trend': 'off'},
-            2: {'multiplier': 0.7, 'trend': 'low'},
-            3: {'multiplier': 0.9, 'trend': 'rising'},
-            4: {'multiplier': 1.0, 'trend': 'moderate'},
-            5: {'multiplier': 1.1, 'trend': 'rising'},
-            6: {'multiplier': 1.2, 'trend': 'high'},
-            7: {'multiplier': 1.3, 'trend': 'peak'},
-            8: {'multiplier': 1.2, 'trend': 'high'},
-            9: {'multiplier': 1.0, 'trend': 'moderate'},
-            10: {'multiplier': 0.8, 'trend': 'declining'},
-            11: {'multiplier': 0.7, 'trend': 'low'},
-            12: {'multiplier': 0.6, 'trend': 'off'}
-        }
-        
-        # Get seasonal multiplier
-        location_pattern = seasonal_patterns.get(location, default_seasonal)
-        seasonal_data = location_pattern.get(month, default_seasonal[month])
-        seasonal_multiplier = seasonal_data['multiplier']
-        seasonal_trend = seasonal_data['trend']
-        
-        # Weather factor (based on our weather data)
-        weather_key = location if location in WEATHER_DATA else 'Gulmarg'
-        weather = WEATHER_DATA[weather_key].get(month, WEATHER_DATA['Gulmarg'][6])
-        
-        # Weather impact (good weather increases visitors)
-        # Temperature comfort score (ideal range 15-25°C)
-        temp_comfort = max(0, 1 - abs(weather['temp_mean'] - 20) / 20)
-        # Sunshine score (more sunshine is better)
-        sunshine_score = min(1, weather['sunshine'] / 300)
-        # Precipitation penalty (less rain/snow is better)
-        precip_penalty = max(0, 1 - weather['precip'] / 200)
-        
-        weather_multiplier = 0.7 + 0.3 * (temp_comfort + sunshine_score + precip_penalty) / 3
-        
-        # Holiday factor
-        holidays = HOLIDAY_DATA.get(month, HOLIDAY_DATA[6])
-        holiday_impact = (holidays['count'] * 0.08) + (holidays['long_weekend'] * 0.12) + (holidays['national'] * 0.05)
-        holiday_multiplier = 1.0 + holiday_impact
-        
-        # Weekend effect (month has about 4-5 weekends)
-        weekend_effect = 1.0 + (8 * 0.02)  # 8 weekends in a month effect
-        
-        # Calculate base prediction
-        base_prediction = base_visitors * growth_factor * seasonal_multiplier * weather_multiplier * holiday_multiplier * weekend_effect
-        
-        # Add realistic variance
-        variance = random.uniform(0.85, 1.15)
-        prediction = base_prediction * variance
-        
-        # Ensure reasonable bounds
-        prediction = max(800, min(prediction, 65000))
-        
-        # Intelligent comparative analysis
-        current_date = datetime.now()
-        current_year = current_date.year
-        current_month = current_date.month
-        
-        # Determine comparison strategy based on how far in the future the prediction is
-        months_ahead = (year - current_year) * 12 + (month - current_month)
-        
-        comparative_data = {}
-        
-        if months_ahead <= 1:
-            # For current or next month, compare with actual previous month
-            prev_month = month - 1 if month > 1 else 12
-            prev_year = year if month > 1 else year - 1
             
-            prev_month_prediction = base_visitors * (1.0 + (prev_year - 2020) * 0.08) * \
-                                   (location_pattern.get(prev_month, default_seasonal[prev_month])['multiplier']) * \
-                                   weather_multiplier * holiday_multiplier * weekend_effect
-            prev_month_prediction = max(800, min(prev_month_prediction, 65000))
-            
-            change = ((prediction - prev_month_prediction) / prev_month_prediction) * 100 if prev_month_prediction != 0 else 0
+            # Comparative analysis (simplified)
             comparative_data = {
-                'comparison_type': 'previous_month',
-                'reference_period': f"{prev_month}/{prev_year}",
-                'reference_value': int(round(prev_month_prediction)),
-                'change': round(change, 1),
-                'trend': 'increase' if change > 0 else 'decrease'
+                'comparison_type': 'model_based',
+                'reference_period': f"{month}/{year}",
+                'reference_value': prediction,
+                'change': 0.0,
+                'trend': 'stable'
             }
-        else:
-            # For future months, compare with same month last year trend
-            prev_year_same_month = base_visitors * (1.0 + (year - 1 - 2020) * 0.08) * \
-                                  (location_pattern.get(month, default_seasonal[month])['multiplier']) * \
-                                  weather_multiplier * holiday_multiplier * weekend_effect
-            prev_year_same_month = max(800, min(prev_year_same_month, 65000))
             
-            change = ((prediction - prev_year_same_month) / prev_year_same_month) * 100 if prev_year_same_month != 0 else 0
-            comparative_data = {
-                'comparison_type': 'same_month_last_year',
-                'reference_period': f"{month}/{year - 1}",
-                'reference_value': int(round(prev_year_same_month)),
-                'change': round(change, 1),
-                'trend': 'increase' if change > 0 else 'decrease'
+            # Weather data for context
+            weather_key = location if location in WEATHER_DATA else 'Gulmarg'
+            # Fixed fallback logic to prevent exceptions
+            default_weather = {
+                'temp_mean': 10, 'temp_max': 15, 'temp_min': 5, 'precip': 75, 
+                'snow': 10, 'precip_hours': 120, 'wind': 20, 'humidity': 65, 'sunshine': 200
             }
+            weather = WEATHER_DATA[weather_key].get(month, WEATHER_DATA['Gulmarg'].get(6, default_weather))
+            
+            # Holiday data
+            holidays = HOLIDAY_DATA.get(month, HOLIDAY_DATA[6])
+            
+            response = {
+                'success': True,
+                'prediction': {
+                    'location': location,
+                    'year': year,
+                    'month': month,
+                    'predicted_footfall': prediction,
+                    'confidence': round(confidence, 2),
+                    'comparative_analysis': comparative_data,
+                    'weather': {
+                        'temperature_mean': weather['temp_mean'],
+                        'temperature_max': weather['temp_max'],
+                        'temperature_min': weather['temp_min'],
+                        'precipitation': weather['precip'],
+                        'snowfall': weather['snow'],
+                        'sunshine_hours': weather['sunshine'],
+                        'wind_speed': weather['wind']
+                    },
+                    'holidays': {
+                        'count': holidays['count'],
+                        'long_weekends': holidays['long_weekend'],
+                        'national_holidays': holidays['national'],
+                        'festival_holidays': holidays['festival']
+                    },
+                    'insights': insights,
+                    'resource_suggestions': suggestions,
+                    'resourceRequirements': resource_requirements
+                },
+                'timestamp': datetime.now().isoformat(),
+                'model_used': True
+            }
+
+            logger.info(f"ML Model Prediction: {location} {year}-{month:02d} → {prediction:,} visitors (Confidence: {confidence:.2f})")
+
+            return jsonify(response)
         
-        # Adjust confidence based on rolling average reliability
-        seasonal_confidence = {
-            'peak': 0.95,
-            'high': 0.90,
-            'moderate': 0.85,
-            'rising': 0.80,
-            'declining': 0.75,
-            'low': 0.70,
-            'off': 0.65
-        }
-        
-        base_confidence = seasonal_confidence.get(seasonal_trend, 0.80)
-        
-        # Adjust confidence based on rolling average input
-        if rolling_avg and 5000 <= rolling_avg <= 80000:
-            # Reasonable rolling average increases confidence
-            base_confidence = min(0.98, base_confidence * 1.1)
-        elif rolling_avg and (rolling_avg < 1000 or rolling_avg > 100000):
-            # Extreme values decrease confidence
-            base_confidence = max(0.5, base_confidence * 0.8)
-        
-        # Adjust confidence based on weather conditions
-        weather_stability = 1.0 - (abs(weather['temp_max'] - weather['temp_min']) / 30)  # More stable weather = higher confidence
-        weather_confidence = 0.7 + 0.3 * weather_stability
-        
-        # Holiday confidence boost
-        holiday_confidence = min(1.0, 0.8 + (holidays['count'] * 0.03))
-        
-        confidence = min(0.98, (base_confidence + weather_confidence + holiday_confidence) / 3)
-        
-        # Generate detailed insights including rolling average impact
-        insights = []
-        
-        # Rolling average insight
-        if rolling_avg and 1000 <= rolling_avg <= 100000:
+        else:
+            # Fallback to custom algorithm if model not available
+            # Enhanced prediction logic with realistic trends and insights
+            import random
+            import math
+            
+            # Base visitors by location (popular locations get more visitors)
+            location_base = {
+                'Gulmarg': 18000,      # Popular ski resort
+                'Pahalgam': 32000,     # Popular valley destination
+                'Sonamarg': 15000,     # Beautiful valley
+                'Yousmarg': 10000,     # Emerging destination
+                'Doodpathri': 7000,    # Nearby attraction
+                'Kokernag': 5500,      # Lesser known
+                'Lolab': 4500,         # Remote valley
+                'Manasbal': 12000,     # Beautiful lake
+                'Aharbal': 3500,       # Waterfall destination
+                'Gurez': 2500          # Very remote
+            }
+            
+            # Use rolling average as baseline if provided and reasonable
+            # This allows the system to adapt to recent trends
+            if rolling_avg and 1000 <= rolling_avg <= 100000:
+                base_visitors = rolling_avg * 0.4  # Use 40% of rolling average as baseline
+            else:
+                base_visitors = location_base.get(location, 12000)
+            
+            # Historical growth trend (Kashmir tourism has been growing)
+            growth_factor = 1.0 + (year - 2020) * 0.08  # 8% annual growth
+            
+            # Adjust growth factor based on recent trends
+            # If rolling average is significantly higher than location baseline, 
+            # it indicates positive momentum
             location_baseline = location_base.get(location, 12000)
-            if rolling_avg > location_baseline * 1.3:
-                insights.append(f"Strong recent momentum detected ({rolling_avg:,} avg visitors). Expect continued growth.")
-            elif rolling_avg < location_baseline * 0.7:
-                insights.append(f"Recent decline in visitors ({rolling_avg:,} avg). Recovery may be gradual.")
-            else:
-                insights.append(f"Stable recent performance ({rolling_avg:,} avg visitors) indicates predictable trends.")
-        
-        # Seasonal insight
-        if seasonal_trend == 'peak':
-            insights.append(f"{location} is experiencing peak season in {month}/{year}. Expect maximum tourist inflow.")
-        elif seasonal_trend == 'high':
-            insights.append(f"{location} is in high season. Good tourist activity expected.")
-        elif seasonal_trend == 'off':
-            insights.append(f"{location} is in off-season. Lower tourist numbers expected.")
-        
-        # Weather insight
-        if weather['temp_mean'] > 25:
-            insights.append("High temperatures may affect visitor comfort. Consider cooling facilities.")
-        elif weather['temp_mean'] < 5:
-            insights.append("Cold temperatures may limit activities. Ensure proper heating facilities.")
-        
-        if weather['precip'] > 100:
-            insights.append("High precipitation expected. May impact outdoor activities.")
-        
-        # Holiday insight
-        if holidays['count'] > 3:
-            insights.append(f"{holidays['count']} holidays this month will likely boost tourism.")
-        elif holidays['count'] == 0:
-            insights.append("No major holidays this month may result in lower tourist numbers.")
-        
-        # Growth insight based on comparison type
-        if comparative_data['change'] > 15:
-            if comparative_data['comparison_type'] == 'previous_month':
-                insights.append(f"Strong {comparative_data['change']:.1f}% month-over-month growth indicates increasing popularity.")
-            else:
-                insights.append(f"Strong {comparative_data['change']:.1f}% year-over-year growth for {month}/{year}.")
-        elif comparative_data['change'] > 5:
-            if comparative_data['comparison_type'] == 'previous_month':
-                insights.append(f"Healthy {comparative_data['change']:.1f}% growth from last month.")
-            else:
-                insights.append(f"Steady {comparative_data['change']:.1f}% growth from same month last year.")
-        elif comparative_data['change'] < -10:
-            if comparative_data['comparison_type'] == 'previous_month':
-                insights.append(f"Significant decline of {abs(comparative_data['change']):.1f}% from last month. Review strategies.")
-            else:
-                insights.append(f"Decline of {abs(comparative_data['change']):.1f}% from same month last year.")
-        elif comparative_data['change'] < 0:
-            if comparative_data['comparison_type'] == 'previous_month':
-                insights.append(f"Small decline of {abs(comparative_data['change']):.1f}% from last month.")
-            else:
-                insights.append(f"Mild decline of {abs(comparative_data['change']):.1f}% from same month last year.")
-        
-        # Generate resource planning suggestions
-        suggestions = []
-        
-        # Staffing suggestions
-        if prediction > 25000:
-            suggestions.append("Deploy additional tour guides and support staff for peak visitor capacity.")
-        elif prediction > 15000:
-            suggestions.append("Maintain standard staffing levels with on-call support.")
-        else:
-            suggestions.append("Standard staffing sufficient. Consider cross-training for flexibility.")
-        
-        # Transportation suggestions
-        if prediction > 30000:
-            suggestions.append("Increase transportation services (taxis, buses) to handle visitor influx.")
-        elif prediction > 20000:
-            suggestions.append("Ensure regular transportation schedules are maintained.")
-        
-        # Accommodation suggestions
-        if prediction > 20000:
-            suggestions.append("Coordinate with hotels for additional capacity. Consider temporary accommodations.")
-        elif seasonal_trend in ['peak', 'high']:
-            suggestions.append("Monitor hotel occupancy rates and prepare overflow plans.")
-        
-        # Emergency services suggestions
-        if prediction > 25000:
-            suggestions.append("Enhance medical and emergency services coverage for high visitor density.")
-        
-        # Weather-specific suggestions
-        if weather['snow'] > 50:
-            suggestions.append("Ensure snow clearing equipment is ready and road maintenance crews are on standby.")
-        elif weather['precip'] > 150:
-            suggestions.append("Prepare for wet conditions with proper drainage and slip-resistant walkways.")
-        
-        # Rolling average specific suggestions
-        if rolling_avg and rolling_avg > 40000:
-            suggestions.append("High recent visitor volume suggests need for enhanced crowd management protocols.")
-        elif rolling_avg and rolling_avg < 10000:
-            suggestions.append("Low recent visitor volume suggests opportunity for targeted promotional campaigns.")
-        
-        # Response data
-        response = {
-            'success': True,
-            'prediction': {
-                'location': location,
-                'year': year,
-                'month': month,
-                'predicted_footfall': int(round(prediction)),
-                'confidence': round(confidence, 2),
-                'comparative_analysis': comparative_data,
-                'weather': {
-                    'temperature_mean': weather['temp_mean'],
-                    'temperature_max': weather['temp_max'],
-                    'temperature_min': weather['temp_min'],
-                    'precipitation': weather['precip'],
-                    'snowfall': weather['snow'],
-                    'sunshine_hours': weather['sunshine'],
-                    'wind_speed': weather['wind']
+            if rolling_avg and rolling_avg > location_baseline * 1.2:
+                # Positive momentum - slightly boost growth factor
+                growth_factor *= 1.05
+            elif rolling_avg and rolling_avg < location_baseline * 0.8:
+                # Negative momentum - slightly reduce growth factor
+                growth_factor *= 0.95
+            
+            # Seasonal patterns based on Kashmir tourism data
+            seasonal_patterns = {
+                'Gulmarg': {
+                    12: {'multiplier': 1.4, 'trend': 'peak'},    # Winter ski season
+                    1: {'multiplier': 1.3, 'trend': 'peak'},
+                    2: {'multiplier': 1.2, 'trend': 'high'},
+                    3: {'multiplier': 0.7, 'trend': 'low'},
+                    6: {'multiplier': 0.5, 'trend': 'off'},
+                    7: {'multiplier': 0.4, 'trend': 'off'},
+                    8: {'multiplier': 0.5, 'trend': 'off'}
                 },
-                'holidays': {
-                    'count': holidays['count'],
-                    'long_weekends': holidays['long_weekend'],
-                    'national_holidays': holidays['national'],
-                    'festival_holidays': holidays['festival']
+                'Pahalgam': {
+                    5: {'multiplier': 1.1, 'trend': 'rising'},
+                    6: {'multiplier': 1.5, 'trend': 'peak'},
+                    7: {'multiplier': 1.4, 'trend': 'peak'},
+                    8: {'multiplier': 1.3, 'trend': 'high'},
+                    9: {'multiplier': 1.1, 'trend': 'declining'},
+                    10: {'multiplier': 0.8, 'trend': 'moderate'},
+                    11: {'multiplier': 0.6, 'trend': 'low'},
+                    12: {'multiplier': 0.5, 'trend': 'off'},
+                    1: {'multiplier': 0.4, 'trend': 'off'}
                 },
-                'insights': insights,
-                'resource_suggestions': suggestions
-            },
-            'timestamp': datetime.now().isoformat()
-        }
+                'Sonamarg': {
+                    5: {'multiplier': 1.0, 'trend': 'rising'},
+                    6: {'multiplier': 1.3, 'trend': 'high'},
+                    7: {'multiplier': 1.2, 'trend': 'high'},
+                    8: {'multiplier': 1.1, 'trend': 'moderate'},
+                    9: {'multiplier': 0.9, 'trend': 'moderate'},
+                    10: {'multiplier': 0.7, 'trend': 'low'}
+                }
+            }
+            
+            # Default seasonal pattern for other locations
+            default_seasonal = {
+                1: {'multiplier': 0.6, 'trend': 'off'},
+                2: {'multiplier': 0.7, 'trend': 'low'},
+                3: {'multiplier': 0.9, 'trend': 'rising'},
+                4: {'multiplier': 1.0, 'trend': 'moderate'},
+                5: {'multiplier': 1.1, 'trend': 'rising'},
+                6: {'multiplier': 1.2, 'trend': 'high'},
+                7: {'multiplier': 1.3, 'trend': 'peak'},
+                8: {'multiplier': 1.2, 'trend': 'high'},
+                9: {'multiplier': 1.0, 'trend': 'moderate'},
+                10: {'multiplier': 0.8, 'trend': 'declining'},
+                11: {'multiplier': 0.7, 'trend': 'low'},
+                12: {'multiplier': 0.6, 'trend': 'off'}
+            }
+            
+            # Get seasonal multiplier
+            location_pattern = seasonal_patterns.get(location, default_seasonal)
+            seasonal_data = location_pattern.get(month, default_seasonal[month])
+            seasonal_multiplier = seasonal_data['multiplier']
+            seasonal_trend = seasonal_data['trend']
+            
+            # Weather factor (based on our weather data)
+            weather_key = location if location in WEATHER_DATA else 'Gulmarg'
+            # Fixed fallback logic to prevent exceptions
+            default_weather = {
+                'temp_mean': 10, 'temp_max': 15, 'temp_min': 5, 'precip': 75, 
+                'snow': 10, 'precip_hours': 120, 'wind': 20, 'humidity': 65, 'sunshine': 200
+            }
+            weather = WEATHER_DATA[weather_key].get(month, WEATHER_DATA['Gulmarg'].get(6, default_weather))
+            
+            # Weather impact (good weather increases visitors)
+            # Temperature comfort score (ideal range 15-25°C)
+            temp_comfort = max(0, 1 - abs(weather['temp_mean'] - 20) / 20)
+            # Sunshine score (more sunshine is better)
+            sunshine_score = min(1, weather['sunshine'] / 300)
+            # Precipitation penalty (less rain/snow is better)
+            precip_penalty = max(0, 1 - weather['precip'] / 200)
+            
+            weather_multiplier = 0.7 + 0.3 * (temp_comfort + sunshine_score + precip_penalty) / 3
+            
+            # Holiday factor
+            holidays = HOLIDAY_DATA.get(month, HOLIDAY_DATA[6])
+            holiday_impact = (holidays['count'] * 0.08) + (holidays['long_weekend'] * 0.12) + (holidays['national'] * 0.05)
+            holiday_multiplier = 1.0 + holiday_impact
+            
+            # Weekend effect (month has about 4-5 weekends)
+            weekend_effect = 1.0 + (8 * 0.02)  # 8 weekends in a month effect
+            
+            # Calculate base prediction
+            base_prediction = base_visitors * growth_factor * seasonal_multiplier * weather_multiplier * holiday_multiplier * weekend_effect
+            
+            # Add realistic variance
+            variance = random.uniform(0.85, 1.15)
+            prediction = base_prediction * variance
+            
+            # Ensure reasonable bounds
+            prediction = max(800, min(prediction, 65000))
+            
+            # Intelligent comparative analysis
+            current_date = datetime.now()
+            current_year = current_date.year
+            current_month = current_date.month
+            
+            # Determine comparison strategy based on how far in the future the prediction is
+            months_ahead = (year - current_year) * 12 + (month - current_month)
+            
+            comparative_data = {}
+            
+            if months_ahead <= 1:
+                # For current or next month, compare with actual previous month
+                prev_month = month - 1 if month > 1 else 12
+                prev_year = year if month > 1 else year - 1
+                
+                prev_month_prediction = base_visitors * (1.0 + (prev_year - 2020) * 0.08) * \
+                                       (location_pattern.get(prev_month, default_seasonal[prev_month])['multiplier']) * \
+                                       weather_multiplier * holiday_multiplier * weekend_effect
+                prev_month_prediction = max(800, min(prev_month_prediction, 65000))
+                
+                change = ((prediction - prev_month_prediction) / prev_month_prediction) * 100 if prev_month_prediction != 0 else 0
+                comparative_data = {
+                    'comparison_type': 'previous_month',
+                    'reference_period': f"{prev_month}/{prev_year}",
+                    'reference_value': int(round(prev_month_prediction)),
+                    'change': round(change, 1),
+                    'trend': 'increase' if change > 0 else 'decrease'
+                }
+            else:
+                # For future months, compare with same month last year trend
+                prev_year_same_month = base_visitors * (1.0 + (year - 1 - 2020) * 0.08) * \
+                                      (location_pattern.get(month, default_seasonal[month])['multiplier']) * \
+                                      weather_multiplier * holiday_multiplier * weekend_effect
+                prev_year_same_month = max(800, min(prev_year_same_month, 65000))
+                
+                change = ((prediction - prev_year_same_month) / prev_year_same_month) * 100 if prev_year_same_month != 0 else 0
+                comparative_data = {
+                    'comparison_type': 'same_month_last_year',
+                    'reference_period': f"{month}/{year - 1}",
+                    'reference_value': int(round(prev_year_same_month)),
+                    'change': round(change, 1),
+                    'trend': 'increase' if change > 0 else 'decrease'
+                }
+            
+            # Adjust confidence based on rolling average reliability
+            seasonal_confidence = {
+                'peak': 0.95,
+                'high': 0.90,
+                'moderate': 0.85,
+                'rising': 0.80,
+                'declining': 0.75,
+                'low': 0.70,
+                'off': 0.65
+            }
+            
+            base_confidence = seasonal_confidence.get(seasonal_trend, 0.80)
+            
+            # Adjust confidence based on rolling average input
+            if rolling_avg and 5000 <= rolling_avg <= 80000:
+                # Reasonable rolling average increases confidence
+                base_confidence = min(0.98, base_confidence * 1.1)
+            elif rolling_avg and (rolling_avg < 1000 or rolling_avg > 100000):
+                # Extreme values decrease confidence
+                base_confidence = max(0.5, base_confidence * 0.8)
+            
+            # Adjust confidence based on weather conditions
+            weather_stability = 1.0 - (abs(weather['temp_max'] - weather['temp_min']) / 30)  # More stable weather = higher confidence
+            weather_confidence = 0.7 + 0.3 * weather_stability
+            
+            # Holiday confidence boost
+            holiday_confidence = min(1.0, 0.8 + (holidays['count'] * 0.03))
+            
+            confidence = min(0.98, (base_confidence + weather_confidence + holiday_confidence) / 3)
+            
+            # Generate detailed insights including rolling average impact
+            insights = []
+            
+            # Rolling average insight
+            if rolling_avg and 1000 <= rolling_avg <= 100000:
+                location_baseline = location_base.get(location, 12000)
+                if rolling_avg > location_baseline * 1.3:
+                    insights.append(f"Strong recent momentum detected ({rolling_avg:,} avg visitors). Expect continued growth.")
+                elif rolling_avg < location_baseline * 0.7:
+                    insights.append(f"Recent decline in visitors ({rolling_avg:,} avg). Recovery may be gradual.")
+                else:
+                    insights.append(f"Stable recent performance ({rolling_avg:,} avg visitors) indicates predictable trends.")
+            
+            # Seasonal insight
+            if seasonal_trend == 'peak':
+                insights.append(f"{location} is experiencing peak season in {month}/{year}. Expect maximum tourist inflow.")
+            elif seasonal_trend == 'high':
+                insights.append(f"{location} is in high season. Good tourist activity expected.")
+            elif seasonal_trend == 'off':
+                insights.append(f"{location} is in off-season. Lower tourist numbers expected.")
+            
+            # Weather insight
+            if weather['temp_mean'] > 25:
+                insights.append("High temperatures may affect visitor comfort. Consider cooling facilities.")
+            elif weather['temp_mean'] < 5:
+                insights.append("Cold temperatures may limit activities. Ensure proper heating facilities.")
+            
+            if weather['precip'] > 100:
+                insights.append("High precipitation expected. May impact outdoor activities.")
+            
+            # Holiday insight
+            if holidays['count'] > 3:
+                insights.append(f"{holidays['count']} holidays this month will likely boost tourism.")
+            elif holidays['count'] == 0:
+                insights.append("No major holidays this month may result in lower tourist numbers.")
+            
+            # Growth insight based on comparison type
+            if comparative_data['change'] > 15:
+                if comparative_data['comparison_type'] == 'previous_month':
+                    insights.append(f"Strong {comparative_data['change']:.1f}% month-over-month growth indicates increasing popularity.")
+                else:
+                    insights.append(f"Strong {comparative_data['change']:.1f}% year-over-year growth for {month}/{year}.")
+            elif comparative_data['change'] > 5:
+                if comparative_data['comparison_type'] == 'previous_month':
+                    insights.append(f"Healthy {comparative_data['change']:.1f}% growth from last month.")
+                else:
+                    insights.append(f"Steady {comparative_data['change']:.1f}% growth from same month last year.")
+            elif comparative_data['change'] < -10:
+                if comparative_data['comparison_type'] == 'previous_month':
+                    insights.append(f"Significant decline of {abs(comparative_data['change']):.1f}% from last month. Review strategies.")
+                else:
+                    insights.append(f"Decline of {abs(comparative_data['change']):.1f}% from same month last year.")
+            elif comparative_data['change'] < 0:
+                if comparative_data['comparison_type'] == 'previous_month':
+                    insights.append(f"Small decline of {abs(comparative_data['change']):.1f}% from last month.")
+                else:
+                    insights.append(f"Mild decline of {abs(comparative_data['change']):.1f}% from same month last year.")
+            
+            # Generate resource planning suggestions
+            suggestions = []
+            
+            # Staffing suggestions
+            if prediction > 25000:
+                suggestions.append("Deploy additional tour guides and support staff for peak visitor capacity.")
+            elif prediction > 15000:
+                suggestions.append("Maintain standard staffing levels with on-call support.")
+            else:
+                suggestions.append("Standard staffing sufficient. Consider cross-training for flexibility.")
+            
+            # Transportation suggestions
+            if prediction > 30000:
+                suggestions.append("Increase transportation services (taxis, buses) to handle visitor influx.")
+            elif prediction > 20000:
+                suggestions.append("Ensure regular transportation schedules are maintained.")
+            
+            # Accommodation suggestions
+            if prediction > 20000:
+                suggestions.append("Coordinate with hotels for additional capacity. Consider temporary accommodations.")
+            elif seasonal_trend in ['peak', 'high']:
+                suggestions.append("Monitor hotel occupancy rates and prepare overflow plans.")
+            
+            # Emergency services suggestions
+            if prediction > 25000:
+                suggestions.append("Enhance medical and emergency services coverage for high visitor density.")
+            
+            # Weather-specific suggestions
+            if weather['snow'] > 50:
+                suggestions.append("Ensure snow clearing equipment is ready and road maintenance crews are on standby.")
+            elif weather['precip'] > 150:
+                suggestions.append("Prepare for wet conditions with proper drainage and slip-resistant walkways.")
+            
+            # Rolling average specific suggestions
+            if rolling_avg and rolling_avg > 40000:
+                suggestions.append("High recent visitor volume suggests need for enhanced crowd management protocols.")
+            elif rolling_avg and rolling_avg < 10000:
+                suggestions.append("Low recent visitor volume suggests opportunity for targeted promotional campaigns.")
+            
+            # Resource requirements
+            resource_requirements = {
+                'staff': max(5, int(prediction / 1000)),  # 1 staff per 1000 visitors
+                'vehicles': max(2, int(prediction / 2000)),  # 1 vehicle per 2000 visitors
+                'rooms': max(20, int(prediction * 0.05))  # 0.05 rooms per visitor
+            }
+            
+            # Response data
+            response = {
+                'success': True,
+                'prediction': {
+                    'location': location,
+                    'year': year,
+                    'month': month,
+                    'predicted_footfall': int(round(prediction)),
+                    'confidence': round(confidence, 2),
+                    'comparative_analysis': comparative_data,
+                    'weather': {
+                        'temperature_mean': weather['temp_mean'],
+                        'temperature_max': weather['temp_max'],
+                        'temperature_min': weather['temp_min'],
+                        'precipitation': weather['precip'],
+                        'snowfall': weather['snow'],
+                        'sunshine_hours': weather['sunshine'],
+                        'wind_speed': weather['wind']
+                    },
+                    'holidays': {
+                        'count': holidays['count'],
+                        'long_weekends': holidays['long_weekend'],
+                        'national_holidays': holidays['national'],
+                        'festival_holidays': holidays['festival']
+                    },
+                    'insights': insights,
+                    'resource_suggestions': suggestions,
+                    'resourceRequirements': resource_requirements
+                },
+                'timestamp': datetime.now().isoformat(),
+                'model_used': False
+            }
 
-        logger.info(f"Prediction: {location} {year}-{month:02d} → {int(prediction):,} visitors (Change: {comparative_data['change']:+.1f}%, Rolling Avg: {rolling_avg or 'N/A'})")
+            logger.info(f"Custom Algorithm Prediction: {location} {year}-{month:02d} → {int(prediction):,} visitors (Change: {comparative_data['change']:+.1f}%, Rolling Avg: {rolling_avg or 'N/A'})")
 
-        return jsonify(response)
+            return jsonify(response)
 
     except Exception as e:
         logger.error(f"Prediction error: {str(e)}")

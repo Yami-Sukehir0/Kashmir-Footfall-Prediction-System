@@ -76,6 +76,20 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.heatmap-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #cbd5e1;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .heatmap-card h3 {
@@ -83,6 +97,28 @@
   color: #1e293b;
   font-size: 1rem;
   font-weight: 600;
+}
+
+.risk-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.risk-badge.critical {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.risk-badge.warning {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.risk-badge.normal {
+  background: #ecfdf5;
+  color: #059669;
 }
 
 .traffic-indicator {
@@ -119,6 +155,23 @@
   font-weight: 500;
 }
 
+.expected-visitors {
+  font-size: 0.875rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.btn-small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
 .heatmap-loading {
   display: flex;
   flex-direction: column;
@@ -131,4 +184,15 @@
 .heatmap-loading i {
   font-size: 2rem;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .heatmap-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .heatmap-legend {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
 }

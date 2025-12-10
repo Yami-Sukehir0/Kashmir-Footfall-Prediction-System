@@ -32,7 +32,7 @@ const ResourcePlanner = () => {
         footfall: predictionResponse.data.prediction.predicted_footfall,
       });
 
-      // Transform the resource data into a more structured format
+      // Transform the resource data into a more structured format with department focus
       const resourceData = [
         {
           type: "Staff",
@@ -50,6 +50,8 @@ const ResourcePlanner = () => {
               value: resourceResponse.data.staff.support,
             },
           ],
+          departmentAction: "Notify HR department for staffing requirements",
+          priority: "High",
         },
         {
           type: "Transportation",
@@ -61,6 +63,9 @@ const ResourcePlanner = () => {
             { name: "Vans", value: resourceResponse.data.transport.vans },
             { name: "Taxis", value: resourceResponse.data.transport.taxis },
           ],
+          departmentAction:
+            "Contact transport providers for vehicle reservations",
+          priority: "High",
         },
         {
           type: "Accommodation",
@@ -77,6 +82,9 @@ const ResourcePlanner = () => {
               value: resourceResponse.data.accommodation.hotels,
             },
           ],
+          departmentAction:
+            "Reserve accommodation facilities with hotel partners",
+          priority: "Medium",
         },
         {
           type: "Budget Estimate",
@@ -110,12 +118,59 @@ const ResourcePlanner = () => {
               ).toFixed(1)} lakhs`,
             },
           ],
+          departmentAction: "Submit budget request to finance department",
+          priority: "High",
+        },
+        {
+          type: "Emergency Preparedness",
+          quantity:
+            resourceResponse.data.budget.emergency > 0 ? "Required" : "Standby",
+          unit: "",
+          description: "Emergency response protocols and resources",
+          details: [
+            { name: "Medical Team", value: "On Standby" },
+            { name: "Evacuation Plan", value: "Ready" },
+            { name: "Communication Channels", value: "Established" },
+          ],
+          departmentAction: "Coordinate with emergency response teams",
+          priority: "Critical",
         },
       ];
 
       setResources(resourceData);
     } catch (error) {
       console.error("Failed to load resource data:", error);
+      // Set fallback data for demonstration
+      setResources([
+        {
+          type: "Staff",
+          quantity: 650,
+          unit: "personnel",
+          description:
+            "Includes 195 tour guides, 163 security personnel, and 292 support staff",
+          details: [
+            { name: "Tour Guides", value: 195 },
+            { name: "Security Personnel", value: 163 },
+            { name: "Support Staff", value: 292 },
+          ],
+          departmentAction: "Notify HR department for staffing requirements",
+          priority: "High",
+        },
+        {
+          type: "Transportation",
+          quantity: 33,
+          unit: "vehicles",
+          description: "Comprising 17 buses, 10 vans, and 6 taxis",
+          details: [
+            { name: "Buses", value: 17 },
+            { name: "Vans", value: 10 },
+            { name: "Taxis", value: 6 },
+          ],
+          departmentAction:
+            "Contact transport providers for vehicle reservations",
+          priority: "High",
+        },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -124,6 +179,57 @@ const ResourcePlanner = () => {
   useEffect(() => {
     loadResourceData();
   }, [loadResourceData]);
+
+  const handleViewResourceDetails = (resource) => {
+    // Show detailed resource information
+    const details = `
+Resource Details: ${resource.type}
+=========================
+
+Quantity: ${resource.quantity} ${resource.unit}
+Description: ${resource.description}
+
+Breakdown:
+${
+  resource.details
+    ?.map((detail) => `- ${detail.name}: ${detail.value}`)
+    .join("\n") || "N/A"
+}
+
+Department Action Required:
+${resource.departmentAction || "None"}
+
+Priority Level: ${resource.priority || "Normal"}
+    `;
+
+    alert(details);
+    console.log("Admin viewed resource details:", resource);
+  };
+
+  const handleAssignResource = (resource) => {
+    // Open resource assignment interface
+    const assignment = `
+Assign Resource: ${resource.type}
+========================
+
+Current Status: Not Assigned
+Required Quantity: ${resource.quantity} ${resource.unit}
+
+Assignment Progress:
+[ ] ${resource.type} Assigned: [0/${resource.quantity}]
+
+Department Contacts:
+- ${resource.type.includes("Staff") ? "HR Department" : ""}
+- ${resource.type.includes("Transport") ? "Transport Providers" : ""}
+- ${resource.type.includes("Accommodation") ? "Hotel Partners" : ""}
+- ${resource.type.includes("Budget") ? "Finance Department" : ""}
+
+Assign Resources [Button]
+    `;
+
+    alert(assignment);
+    console.log("Admin assigned resource:", resource);
+  };
 
   // Sample locations for demo
   const locations = [

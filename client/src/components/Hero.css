@@ -120,7 +120,7 @@
 
 .gradient-text {
   display: block;
-  background: linear-gradient(90deg, #60a5fa, #38bdf8);
+  background: linear-gradient(90deg, #FF9933, #FFFFFF, #138808);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -156,7 +156,7 @@
 .stat-value {
   font-size: 2rem;
   font-weight: 700;
-  color: #60a5fa;
+  color: #FF9933;
 }
 
 .stat-label {
@@ -194,45 +194,45 @@
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  background: linear-gradient(90deg, #138808, #000080);
   color: white;
-  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 10px 25px rgba(19, 136, 8, 0.5);
   border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  background: linear-gradient(90deg, #000080, #138808);
   transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(59, 130, 246, 0.6);
+  box-shadow: 0 15px 30px rgba(0, 0, 128, 0.6);
   border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .btn-secondary {
-  background: rgba(30, 41, 59, 0.8);
-  color: #e2e8f0;
-  border: 2px solid rgba(148, 163, 184, 0.5);
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 .btn-secondary:hover {
-  background: rgba(56, 189, 248, 0.2);
-  border-color: rgba(56, 189, 248, 0.7);
+  background: rgba(255, 153, 51, 0.2);
+  border-color: rgba(255, 153, 51, 0.7);
   transform: translateY(-3px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
 .btn-accent {
-  background: linear-gradient(90deg, #8b5cf6, #ec4899);
-  color: white;
-  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
+  background: linear-gradient(90deg, #FF9933, #FFFFFF);
+  color: #000000;
+  box-shadow: 0 10px 25px rgba(255, 153, 51, 0.5);
   border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .btn-accent:hover {
-  background: linear-gradient(90deg, #7c3aed, #db2777);
+  background: linear-gradient(90deg, #FFFFFF, #FF9933);
   transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(139, 92, 246, 0.6);
+  box-shadow: 0 15px 30px rgba(255, 153, 51, 0.6);
   border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -428,4 +428,23 @@
 .stat-label {
   color: #cbd5e1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .hero-badge {
+    animation: none;
+  }
+  
+  .orb-1, .orb-2, .orb-3 {
+    animation: none;
+  }
+  
+  .btn {
+    transition: none;
+  }
+  
+  .stat-item:hover {
+    transform: none;
+  }
 }

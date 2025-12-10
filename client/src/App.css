@@ -1,6 +1,6 @@
 .App {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: transparent;
   color: #e2e8f0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -81,28 +81,34 @@ section {
 }
 
 .prediction-section {
-  background: linear-gradient(to bottom, #1e293b 0%, #0f172a 100%);
+  background: rgba(30, 41, 59, 0.85);
   padding-top: 120px;
+  backdrop-filter: blur(10px);
 }
 
 .results-section {
-  background: linear-gradient(to bottom, #0f172a 0%, #1e293b 100%);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
 }
 
 .resources-section {
-  background: linear-gradient(to bottom, #1e293b 0%, #0f172a 100%);
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(10px);
 }
 
 .history-section {
-  background: linear-gradient(to bottom, #0f172a 0%, #1e293b 100%);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
 }
 
 .features-section {
-  background: linear-gradient(to bottom, #1e293b 0%, #0f172a 100%);
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(10px);
 }
 
 .testimonials-section {
-  background: linear-gradient(to bottom, #0f172a 0%, #1e293b 100%);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
 }
 
 /* Section Headers */
@@ -141,13 +147,14 @@ section {
 }
 
 .feature-card {
-  background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
   padding: 2rem;
   text-align: center;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .feature-card:hover {
@@ -182,11 +189,12 @@ section {
 }
 
 .testimonial-card {
-  background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
   padding: 2rem;
   backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .testimonial-content {
@@ -344,7 +352,8 @@ section {
 
 /* Featured Locations */
 .featured-locations-section {
-  background: linear-gradient(to bottom, #1e293b 0%, #0f172a 100%);
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(10px);
 }
 
 .locations-grid {
@@ -355,13 +364,13 @@ section {
 }
 
 .location-card {
-  background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
   overflow: hidden;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .location-card:hover {

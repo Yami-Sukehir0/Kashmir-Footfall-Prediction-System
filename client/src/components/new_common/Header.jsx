@@ -1,9 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const Header = () => {
   const { isAuthenticated, isAdmin, logout } = useAuth();
+  const location = useLocation();
+
+  // Check if we're in admin area
+  const isAdminArea = location.pathname.startsWith("/admin");
 
   return (
     <header className="public-header">
@@ -16,23 +20,69 @@ const Header = () => {
         <nav className="header-nav">
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link
+                to="/"
+                className={location.pathname === "/" ? "active" : ""}
+              >
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/features">Features</Link>
+              <Link
+                to="/features"
+                className={location.pathname === "/features" ? "active" : ""}
+              >
+                Features
+              </Link>
             </li>
             <li>
-              <Link to="/locations">Locations</Link>
+              <Link
+                to="/locations"
+                className={location.pathname === "/locations" ? "active" : ""}
+              >
+                Locations
+              </Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link
+                to="/about"
+                className={location.pathname === "/about" ? "active" : ""}
+              >
+                About
+              </Link>
             </li>
             {isAuthenticated ? (
               <>
                 {isAdmin && (
-                  <li>
-                    <Link to="/admin">Admin Panel</Link>
-                  </li>
+                  <>
+                    {isAdminArea ? (
+                      <li>
+                        <Link
+                          to="/"
+                          className={
+                            location.pathname === "/" && !isAdminArea
+                              ? "active"
+                              : ""
+                          }
+                        >
+                          Public View
+                        </Link>
+                      </li>
+                    ) : (
+                      <li>
+                        <Link
+                          to="/admin"
+                          className={
+                            location.pathname.startsWith("/admin")
+                              ? "active"
+                              : ""
+                          }
+                        >
+                          Admin Panel
+                        </Link>
+                      </li>
+                    )}
+                  </>
                 )}
                 <li>
                   <button onClick={logout}>Logout</button>
