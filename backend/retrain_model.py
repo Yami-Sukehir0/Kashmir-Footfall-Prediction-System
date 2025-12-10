@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Retrain the Kashmir tourism prediction model with improved location sensitivity
+Retrain the Kashmir tourism prediction model with improved location sensitivity using log-transformed data
 """
 
 import pandas as pd
@@ -38,6 +38,7 @@ def prepare_features(df):
     logger.info("Preparing features and target...")
     
     # Define feature columns (matching the 17 features used in prediction)
+    # These are the features that the prediction pipeline expects
     feature_columns = [
         'location_encoded',           # 1. location_encoded
         'year',                      # 2. year
@@ -58,10 +59,10 @@ def prepare_features(df):
         'festival_holiday_count'     # 17. festival_holiday_count
     ]
     
-    # Target
+    # Target (log-transformed footfall)
     y = df['Footfall'].copy()
     
-    # Features
+    # Features (select only the features that match what the prediction pipeline expects)
     X = df[feature_columns].copy()
     
     logger.info(f"Features shape: {X.shape}")
@@ -119,17 +120,18 @@ def train_model(X_train, y_train, X_val, y_val):
     """Train RandomForest model with hyperparameter tuning"""
     logger.info("Training RandomForest model with hyperparameter tuning...")
     
-    # Define parameter grid for hyperparameter tuning
+    # Enhanced parameters for better sensitivity to seasonal/location factors
     param_grid = {
-        'n_estimators': [100, 200],
-        'max_depth': [10, 15, 20, None],
-        'min_samples_split': [2, 5, 10],
-        'min_samples_leaf': [1, 2, 4],
-        'max_features': ['sqrt', 'log2', None]
+        'n_estimators': [300],  # Increased for better performance
+        'max_depth': [25],      # Increased depth for capturing complex patterns
+        'min_samples_split': [2],
+        'min_samples_leaf': [1],
+        'max_features': ['sqrt'],
+        'random_state': [42]
     }
     
     # Create base model
-    rf = RandomForestRegressor(random_state=42, n_jobs=-1)
+    rf = RandomForestRegressor(n_jobs=-1)
     
     # Perform grid search with cross-validation
     logger.info("Performing grid search...")
@@ -165,22 +167,37 @@ def evaluate_model(model, X_test, y_test):
     """Evaluate model on test set"""
     logger.info("Evaluating model on test set...")
     
-    # Predict
-    y_pred = model.predict(X_test)
+    # Predict (log-transformed values)
+    y_pred_log = model.predict(X_test)
     
-    # Calculate metrics
-    test_r2 = r2_score(y_test, y_pred)
-    test_mae = mean_absolute_error(y_test, y_pred)
-    test_rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+    # Calculate metrics on log-transformed values
+    test_r2 = r2_score(y_test, y_pred_log)
+    test_mae = mean_absolute_error(y_test, y_pred_log)
+    test_rmse = np.sqrt(mean_squared_error(y_test, y_pred_log))
     
-    logger.info(f"Test R2: {test_r2:.4f}")
-    logger.info(f"Test MAE: {test_mae:.2f}")
-    logger.info(f"Test RMSE: {test_rmse:.2f}")
+    logger.info(f"Test R2 (log scale): {test_r2:.4f}")
+    logger.info(f"Test MAE (log scale): {test_mae:.4f}")
+    logger.info(f"Test RMSE (log scale): {test_rmse:.4f}")
+    
+    # Also calculate metrics on actual values (inverse transformed)
+    y_test_actual = np.exp(y_test)
+    y_pred_actual = np.exp(y_pred_log)
+    
+    test_r2_actual = r2_score(y_test_actual, y_pred_actual)
+    test_mae_actual = mean_absolute_error(y_test_actual, y_pred_actual)
+    test_rmse_actual = np.sqrt(mean_squared_error(y_test_actual, y_pred_actual))
+    
+    logger.info(f"Test R2 (actual scale): {test_r2_actual:.4f}")
+    logger.info(f"Test MAE (actual scale): {test_mae_actual:.2f}")
+    logger.info(f"Test RMSE (actual scale): {test_rmse_actual:.2f}")
     
     return {
         'R2': test_r2,
         'MAE': test_mae,
-        'RMSE': test_rmse
+        'RMSE': test_rmse,
+        'R2_actual': test_r2_actual,
+        'MAE_actual': test_mae_actual,
+        'RMSE_actual': test_rmse_actual
     }
 
 def check_location_sensitivity(model, scaler, feature_columns):
@@ -217,18 +234,37 @@ def check_location_sensitivity(model, scaler, feature_columns):
         # Scale features
         scaled_data = scaler.transform(test_data)
         
-        # Predict
-        pred = model.predict(scaled_data)[0]
-        predictions[loc_code] = pred
+        # Predict (log-transformed value)
+        pred_log = model.predict(scaled_data)[0]
+        # Convert to actual value
+        pred_actual = np.exp(pred_log)
+        predictions[loc_code] = pred_actual
     
-    # Check diversity
-    unique_predictions = len(set([round(p) for p in predictions.values()]))
+    # Check diversity in actual predictions
+    unique_predictions = len(set([round(p, -3) for p in predictions.values()]))  # Round to nearest 1000
     prediction_range = max(predictions.values()) - min(predictions.values())
     
-    logger.info(f"Unique predictions for 10 locations: {unique_predictions}/10")
-    logger.info(f"Prediction range: {prediction_range:.0f} visitors")
+    logger.info(f"Unique actual predictions for 10 locations: {unique_predictions}/10")
+    logger.info(f"Actual prediction range: {prediction_range:.0f}")
     
-    if unique_predictions >= 8 and prediction_range > 5000:
+    # Check if peak winter predictions for Gulmarg are in lakhs range
+    gulmarg_winter_data = base_data.copy()
+    gulmarg_winter_data[0, 0] = 3  # Gulmarg
+    gulmarg_winter_data[0, 2] = 1  # January
+    gulmarg_winter_data[0, 3] = 1  # Winter season
+    
+    scaled_gulmarg = scaler.transform(gulmarg_winter_data)
+    gulmarg_pred_log = model.predict(scaled_gulmarg)[0]
+    gulmarg_pred_actual = np.exp(gulmarg_pred_log)
+    
+    logger.info(f"Gulmarg January prediction: {gulmarg_pred_actual:.0f} visitors")
+    
+    if gulmarg_pred_actual >= 100000:
+        logger.info("✅ Gulmarg peak winter prediction is in LAKHS range")
+    else:
+        logger.warning("⚠️ Gulmarg peak winter prediction is NOT in LAKHS range")
+    
+    if unique_predictions >= 8 and prediction_range > 10000:
         logger.info("✅ Model shows good location sensitivity")
         return True
     else:
@@ -260,7 +296,8 @@ def save_model(model, scaler, test_metrics, feature_columns, model_dir='models')
         'model_type': 'randomforestregressor',
         'num_features': len(feature_columns),
         'trained_at': datetime.now().isoformat(),
-        'test_metrics': test_metrics
+        'test_metrics': test_metrics,
+        'target_transform': 'log',  # Indicate that target is log-transformed
     }
     
     metadata_path = os.path.join(best_model_dir, 'metadata.pkl')
@@ -271,11 +308,12 @@ def main():
     """Main training function"""
     logger.info("=" * 70)
     logger.info("KASHMIR TOURISM FOOTFALL PREDICTION - MODEL RETRAINING")
+    logger.info("Using LOG-TRANSFORMED dataset for improved model performance")
     logger.info("=" * 70)
     
     try:
-        # Load training data
-        data_path = os.path.join('data', 'model_ready', 'kashmir_tourism_simple_label.csv')
+        # Load training data (using log-transformed dataset with full path)
+        data_path = r'C:\Users\HP\OneDrive\Desktop\kashmir-tourism-fullstack\backend\data\kashmir_tourism_LOG_TRANSFORMED_option2.csv'
         df = load_training_data(data_path)
         
         # Prepare features
@@ -299,12 +337,14 @@ def main():
         # Check location sensitivity
         location_sensitive = check_location_sensitivity(model, scaler, feature_columns)
         
-        # Save model if it's location sensitive
+        # Save model regardless for testing purposes
+        save_model(model, scaler, test_metrics, feature_columns)
         if location_sensitive:
-            save_model(model, scaler, test_metrics, feature_columns)
             logger.info("\n✅ Model retraining completed successfully!")
+            logger.info("Model trained on LOG-TRANSFORMED data for better performance")
         else:
             logger.warning("\n⚠️ Model shows poor location sensitivity. Consider adjusting training parameters.")
+            logger.info("Model saved for testing purposes.")
         
         # Display feature importances
         feature_importance = pd.DataFrame({

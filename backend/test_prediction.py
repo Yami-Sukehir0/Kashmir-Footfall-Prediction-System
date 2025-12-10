@@ -4,6 +4,21 @@ Test script to verify the model prediction works correctly after the fix
 import joblib
 import numpy as np
 import os
+import requests
+import json
+
+# Test prediction for Gulmarg in January 2026
+url = "http://localhost:5000/api/predict"
+data = {
+    "location": "Gulmarg",
+    "year": 2026,
+    "month": 3
+}
+
+response = requests.post(url, json=data)
+print(f"Status Code: {response.status_code}")
+print(f"Response: {response.json()}")
+
 
 def test_model_loading():
     """Test that model files can be loaded correctly"""
