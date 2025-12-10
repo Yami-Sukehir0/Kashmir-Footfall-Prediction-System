@@ -1,6 +1,0 @@
-@echo off
-echo Creating placeholder models with 17 features...
-python create_placeholder_models.py
-echo.
-echo Press any key to exit...
-pause >nul
